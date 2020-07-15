@@ -1,0 +1,69 @@
+{
+  "project_info": {
+    "project_number": "637538836684",
+    "firebase_url": "https://hsquare-8c5a1.firebaseio.com",
+    "project_id": "hsquare-8c5a1",
+    "storage_bucket": "hsquare-8c5a1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:637538836684:android:5cb21a5d75548f234b6269",
+        "android_client_info": {
+          "package_name": "com.hamza.hsquare"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "637538836684-s9j6kj5pb0jkks4r8h96u96ih8vqpjrt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCC2x5oHshzqQetxtM1VQI6W-i4bFl-3dc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "637538836684-s9j6kj5pb0jkks4r8h96u96ih8vqpjrt.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:637538836684:android:4c12525eec4ad69e4b6269",
+        "android_client_info": {
+          "package_name": "com.hsquare.ecommerce"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "637538836684-s9j6kj5pb0jkks4r8h96u96ih8vqpjrt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCC2x5oHshzqQetxtM1VQI6W-i4bFl-3dc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "637538836684-s9j6kj5pb0jkks4r8h96u96ih8vqpjrt.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
