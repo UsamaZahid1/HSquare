@@ -9,7 +9,7 @@
     <ImageView
         android:id="@+id/hlogo"
         android:layout_width="match_parent"
-        android:layout_height="130dp"
+        android:layout_height="100dp"
         android:layout_marginTop="15dp"
         android:src="@drawable/logo" />
 
@@ -34,11 +34,11 @@
             android:elevation="5dp"
             android:gravity="center"
             android:hint="Name"
-            android:padding="13dp"
+            android:padding="10dp"
             android:textColorHint="@color/white"
-            android:textSize="15sp" />
+            android:textSize="13sp" />
         <EditText
-            android:id="@+id/et_register_phoneno"
+            android:id="@+id/et_register_Email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/hlogo"
@@ -48,10 +48,10 @@
             android:background="@drawable/input"
             android:elevation="5dp"
             android:gravity="center"
-            android:hint="Phone Number"
-            android:padding="13dp"
+            android:hint="Email"
+            android:padding="10dp"
             android:textColorHint="@color/white"
-            android:textSize="15sp" />
+            android:textSize="13sp" />
         <EditText
             android:id="@+id/et_register_password"
             android:layout_width="match_parent"
@@ -64,39 +64,23 @@
             android:elevation="5dp"
             android:gravity="center"
             android:hint="Password"
-            android:padding="13dp"
+            android:padding="10dp"
             android:textColorHint="@color/white"
-            android:textSize="15sp" />
-        <EditText
-            android:id="@+id/et_register_confirmp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/hlogo"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginRight="15dp"
-            android:background="@drawable/input"
-            android:elevation="5dp"
-            android:gravity="center"
-            android:hint="Confirm Password"
-            android:padding="13dp"
-            android:textColorHint="@color/white"
-            android:textSize="15sp" />
-
+            android:textSize="13sp" />
         <com.rey.material.widget.Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/linear_layout"
             android:layout_marginLeft="15dp"
             android:layout_marginTop="15dp"
-            android:padding="13dp"
+            android:padding="10dp"
             android:layout_marginRight="15dp"
             android:background="@drawable/buttons"
-            android:text="Login"
+            android:text="Register"
             android:layout_marginBottom="15dp"
             android:textAllCaps="false"
             android:textColor="@color/white"
-            android:textSize="15sp" />
+            android:textSize="13sp" />
     </LinearLayout>
 
 </LinearLayout>

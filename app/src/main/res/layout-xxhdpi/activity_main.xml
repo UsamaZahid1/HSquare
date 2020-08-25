@@ -4,14 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/sewing"
     android:orientation="vertical"
     tools:context=".MainActivity">
 
     <ImageView
         android:layout_width="match_parent"
-        android:layout_height="330dp"
-        android:src="@drawable/logo" />
+        android:layout_height="450dp"
+        android:src="@drawable/applogo" />
+
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_main_join"
         android:layout_width="match_parent"
@@ -19,7 +19,7 @@
         android:layout_marginLeft="15dp"
         app:icon="@drawable/register"
         app:iconGravity="start"
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="20dp"
         app:iconSize="40dp"
         android:layout_marginRight="15dp"
         android:gravity="center"
@@ -72,12 +72,12 @@
         android:layout_height="70dp"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
-        android:gravity="center"
         android:layout_marginTop="10dp"
         android:textSize="18sp"
         android:textAllCaps="false"
         app:backgroundTint="#363637"
         app:icon="@drawable/login"
+        app:iconSize="40dp"
         app:iconGravity="start"
         app:cornerRadius="23dp"
         app:iconTint="@null"
