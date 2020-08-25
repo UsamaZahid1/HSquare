@@ -20,12 +20,12 @@
         android:layout_marginTop="50dp"
         android:layout_marginRight="15dp"
         android:gravity="center"
-        android:textSize="18sp"
+        android:textSize="20sp"
         android:textAllCaps="false"
         app:backgroundTint="#363637"
         app:cornerRadius="23dp"
         app:iconTint="@null"
-        android:text="Join Now" />
+        android:text="Quick Shop" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_main_quickshop"
@@ -35,7 +35,7 @@
         android:layout_marginTop="5dp"
         android:layout_marginRight="15dp"
         android:gravity="center"
-        android:textSize="18sp"
+        android:textSize="20sp"
         android:textAllCaps="false"
         app:backgroundTint="#5AD8EE"
         app:cornerRadius="23dp"
@@ -47,7 +47,7 @@
     <com.google.android.material.button.MaterialButton
         android:id="@+id/bt_main_googlesign"
         android:layout_width="match_parent"
-        android:layout_height="75dp"
+        android:layout_height="80dp"
         android:layout_marginLeft="15dp"
         android:layout_marginTop="5dp"
         android:layout_marginRight="15dp"
@@ -55,12 +55,12 @@
         android:textAllCaps="false"
         app:backgroundTint="#699BF2"
         app:cornerRadius="23dp"
-        android:textSize="18sp"
+        android:textSize="20sp"
         app:icon="@drawable/google"
         app:iconGravity="textStart"
         app:iconTint="@null"
         android:text="Google Sign In"
-        />
+         />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_main_already"
@@ -70,7 +70,7 @@
         android:layout_marginRight="15dp"
         android:gravity="center"
         android:layout_marginTop="5dp"
-        android:textSize="18sp"
+        android:textSize="20sp"
         android:textAllCaps="false"
         app:backgroundTint="#363637"
         app:cornerRadius="23dp"
