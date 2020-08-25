@@ -10,7 +10,7 @@
 
     <ImageView
         android:layout_width="match_parent"
-        android:layout_height="400dp"
+        android:layout_height="450dp"
         android:src="@drawable/logo" />
 
     <com.google.android.material.button.MaterialButton
@@ -18,14 +18,17 @@
         android:layout_width="match_parent"
         android:layout_height="90dp"
         android:layout_marginLeft="15dp"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="150dp"
         android:layout_marginRight="15dp"
         android:gravity="center"
-        android:text="Quick Shop"
+        android:text="Join Now"
         android:textAllCaps="false"
         android:textSize="25sp"
         app:backgroundTint="#363637"
         app:cornerRadius="23dp"
+        app:icon="@drawable/register"
+        app:iconGravity="start"
+        app:iconSize="40dp"
         app:iconTint="@null" />
 
     <com.google.android.material.button.MaterialButton
@@ -36,13 +39,14 @@
         android:layout_marginTop="10dp"
         android:layout_marginRight="15dp"
         android:gravity="center"
+        app:iconSize="40dp"
         android:text="Quick Shop"
         android:textAllCaps="false"
         android:textSize="25sp"
         app:backgroundTint="#5AD8EE"
         app:cornerRadius="23dp"
         app:icon="@drawable/time"
-        app:iconGravity="textStart"
+        app:iconGravity="start"
         app:iconTint="@null" />
 
     <com.google.android.material.button.MaterialButton
@@ -59,7 +63,8 @@
         app:backgroundTint="#699BF2"
         app:cornerRadius="23dp"
         app:icon="@drawable/google"
-        app:iconGravity="textStart"
+        app:iconSize="40dp"
+        app:iconGravity="start"
         app:iconTint="@null" />
 
     <com.google.android.material.button.MaterialButton
@@ -73,7 +78,10 @@
         android:text="Already a Member?Login"
         android:textAllCaps="false"
         android:textSize="25sp"
+        app:iconSize="40dp"
         app:backgroundTint="#363637"
         app:cornerRadius="23dp"
+        app:icon="@drawable/login"
+        app:iconGravity="start"
         app:iconTint="@null" />
 </LinearLayout>

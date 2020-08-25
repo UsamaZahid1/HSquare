@@ -8,8 +8,7 @@
     <ImageView
         android:id="@+id/hlogo"
         android:layout_width="match_parent"
-        android:layout_height="300dp"
-        android:layout_marginTop="50dp"
+        android:layout_height="130dp"
         android:src="@drawable/logo" />
 
     <EditText
@@ -18,15 +17,15 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/hlogo"
         android:layout_marginLeft="15dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="10dp"
         android:layout_marginRight="15dp"
         android:background="@drawable/input"
         android:elevation="5dp"
         android:gravity="center"
         android:hint="Phone Number"
-        android:padding="20dp"
+        android:padding="15dp"
         android:textColorHint="@color/grey"
-        android:textSize="20sp" />
+        android:textSize="25sp" />
 
     <EditText
         android:id="@+id/et_login_password"
@@ -34,14 +33,14 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/et_login_number"
         android:layout_marginLeft="15dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:layout_marginRight="15dp"
         android:background="@drawable/input"
         android:gravity="center"
         android:hint="Password"
-        android:padding="20dp"
+        android:padding="15dp"
         android:textColorHint="@color/grey"
-        android:textSize="20sp" />
+        android:textSize="25sp" />
 
     <LinearLayout
         android:id="@+id/linear_layout"
@@ -68,7 +67,7 @@
             android:id="@+id/forget_password"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="105dp"
+            android:layout_marginLeft="460dp"
             android:text="Forget Password?"
             android:textColor="@color/colorPrimary"
             android:textSize="17sp" />
@@ -81,13 +80,13 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/linear_layout"
         android:layout_marginLeft="15dp"
-        android:layout_marginTop="20dp"
-        android:padding="20dp"
+        android:layout_marginTop="5dp"
+        android:padding="15dp"
         android:layout_marginRight="15dp"
         android:background="@drawable/buttons"
         android:text="Login"
         android:textAllCaps="false"
         android:textColor="@color/white"
-        android:textSize="20sp" />
+        android:textSize="25sp" />
 
 </RelativeLayout>
