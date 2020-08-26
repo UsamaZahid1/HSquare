@@ -2,11 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.hsquare">
 
-    <supports-screens android:smallScreens="true"></supports-screens>
-    <supports-screens android:normalScreens="true"></supports-screens>
-    <supports-screens android:largeScreens="true"></supports-screens>
-    <supports-screens android:xlargeScreens="true"></supports-screens>
-    <supports-screens android:anyDensity="true"></supports-screens>
+
 
     <application
         android:allowBackup="true"
