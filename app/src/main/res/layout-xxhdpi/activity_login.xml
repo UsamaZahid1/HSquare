@@ -19,7 +19,6 @@
         android:layout_marginLeft="15dp"
         android:layout_marginTop="30dp"
         android:layout_marginRight="15dp"
-        android:elevation="5dp"
         android:hint="Phone Number"
         android:padding="20dp"
         android:textSize="20sp" />
@@ -33,6 +32,7 @@
         android:layout_marginTop="20dp"
         android:layout_marginRight="15dp"
         android:hint="Password"
+        android:inputType="textPassword"
         android:padding="20dp"
         android:textSize="20sp" />
 
@@ -56,7 +56,7 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/forget_password"
+            android:id="@+id/tv_forget_password"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="105dp"
@@ -67,6 +67,7 @@
 
 
     <com.rey.material.widget.Button
+        android:id="@+id/btn_login_login"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/linear_layout"

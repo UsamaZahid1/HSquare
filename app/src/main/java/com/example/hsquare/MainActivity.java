@@ -24,7 +24,6 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent=new Intent(MainActivity.this,LoginAcitvity.class);
                 startActivity(intent);
-                Toast.makeText(MainActivity.this, "u click", Toast.LENGTH_SHORT).show();
 
             }
         });

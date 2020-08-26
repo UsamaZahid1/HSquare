@@ -26,8 +26,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class RegisterActivity extends AppCompatActivity {
 
-    EditText etName, etNumber, etPassword, etConfirmP;
-    Button btnRegister;
+    private EditText etName, etNumber, etPassword, etConfirmP;
+    private Button btnRegister;
     private ProgressDialog progressDialog;
 
     @Override
@@ -65,7 +65,7 @@ public class RegisterActivity extends AppCompatActivity {
             etNumber.setError("Your Phone Number Section can't be empty");
 
         } else if (!Patterns.PHONE.matcher(number).matches()) {
-            //Toast.makeText(this, "Please enter a valid number address...", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Please enter a valid number...", Toast.LENGTH_SHORT).show();
             etNumber.setError("Invalid Phone Number!");
 
         } else if (TextUtils.isEmpty(password)) {
@@ -110,7 +110,7 @@ public class RegisterActivity extends AppCompatActivity {
 
                                         Intent intent = new Intent(RegisterActivity.this, LoginAcitvity.class);
                                         startActivity(intent);
-                                    }else{
+                                    } else {
                                         progressDialog.dismiss();
                                         Toast.makeText(RegisterActivity.this, "Network error please try again.!", Toast.LENGTH_LONG).show();
                                     }
