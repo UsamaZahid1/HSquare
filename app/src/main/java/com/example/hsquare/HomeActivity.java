@@ -5,26 +5,18 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+
 import androidx.appcompat.app.AppCompatActivity;
+import io.paperdb.Paper;
 
 public class HomeActivity extends AppCompatActivity {
-    Button btnLogout;
+    BottomNavigationView navigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-        btnLogout = findViewById(R.id.logout);
-
-
-        btnLogout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(HomeActivity.this,MainActivity.class);
-                startActivity(intent);
-
-            }
-        });
 
     }
 }

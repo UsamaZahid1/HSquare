@@ -12,25 +12,23 @@
         android:layout_width="match_parent"
         android:layout_height="330dp"
         android:src="@drawable/logo" />
-    <com.google.android.material.button.MaterialButton
+    <Button
         android:id="@+id/btn_main_join"
         android:layout_width="match_parent"
         android:layout_height="70dp"
         android:layout_marginLeft="15dp"
-        app:icon="@drawable/register"
-        app:iconGravity="start"
-        android:layout_marginTop="118dp"
+        android:drawableLeft="@drawable/register"
+        android:padding="20dp"
+        android:layout_marginTop="20dp"
         android:layout_marginRight="15dp"
         android:gravity="center"
+        android:textColor="@color/white"
+        android:background="#363637"
         android:textSize="18sp"
-        app:iconSize="40dp"
         android:textAllCaps="false"
-        app:backgroundTint="#363637"
-        app:cornerRadius="23dp"
-        app:iconTint="@null"
         android:text="Join Now" />
 
-    <com.google.android.material.button.MaterialButton
+    <Button
         android:id="@+id/btn_main_quickshop"
         android:layout_width="match_parent"
         android:layout_height="70dp"
@@ -38,17 +36,16 @@
         android:layout_marginTop="10dp"
         android:layout_marginRight="15dp"
         android:gravity="center"
-        app:iconSize="40dp"
         android:textSize="18sp"
+        android:padding="20dp"
         android:textAllCaps="false"
-        app:backgroundTint="#5AD8EE"
-        app:cornerRadius="23dp"
-        app:icon="@drawable/time"
-        app:iconGravity="start"
+        android:drawableLeft="@drawable/time"
+        android:textColor="@color/white"
+        android:background="#5AD8EE"
         app:iconTint="@null"
         android:text="Quick Shop" />
 
-    <com.google.android.material.button.MaterialButton
+    <Button
         android:id="@+id/bt_main_googlesign"
         android:layout_width="match_parent"
         android:layout_height="70dp"
@@ -57,32 +54,28 @@
         android:layout_marginRight="15dp"
         android:gravity="center"
         android:textAllCaps="false"
-        app:backgroundTint="#699BF2"
-        app:cornerRadius="23dp"
-        app:iconSize="40dp"
+        android:drawableLeft="@drawable/google"
+        android:padding="20dp"
+        android:background="#699BF2"
         android:textSize="18sp"
-        app:icon="@drawable/google"
-        app:iconGravity="start"
         app:iconTint="@null"
         android:text="Google Sign In"
-         />
+        />
 
-    <com.google.android.material.button.MaterialButton
+    <Button
         android:id="@+id/btn_main_already"
         android:layout_width="match_parent"
         android:layout_height="70dp"
         android:layout_marginLeft="15dp"
-        app:iconSize="40dp"
         android:layout_marginRight="15dp"
-        android:gravity="center"
         android:layout_marginTop="10dp"
         android:textSize="18sp"
+        android:gravity="center"
+        android:padding="20dp"
+        android:textColor="@color/white"
         android:textAllCaps="false"
-        app:icon="@drawable/login"
-        app:iconGravity="start"
-        app:backgroundTint="#363637"
-        app:cornerRadius="23dp"
-        app:iconTint="@null"
-        android:text="Already a Member?Login" />
+        android:background="#363637"
+        android:drawableLeft="@drawable/login"
+        android:text="Already a Member?" />
 
 </LinearLayout>

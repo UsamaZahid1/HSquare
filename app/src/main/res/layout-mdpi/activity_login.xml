@@ -76,7 +76,7 @@
     </LinearLayout>
 
 
-    <com.rey.material.widget.Button
+    <Button
         android:id="@+id/btn_login_login"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -84,6 +84,7 @@
         android:layout_marginLeft="15dp"
         android:layout_marginTop="10dp"
         android:padding="10dp"
+        android:gravity="center"
         android:layout_marginRight="15dp"
         android:background="@drawable/buttons"
         android:text="Login"

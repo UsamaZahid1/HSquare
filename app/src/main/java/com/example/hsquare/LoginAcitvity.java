@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.hsquare.Model.Users;
+import com.example.hsquare.Prevalent.Prevalent;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -22,6 +23,7 @@ import com.rey.material.widget.CheckBox;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import io.paperdb.Paper;
 
 public class LoginAcitvity extends AppCompatActivity {
     private EditText etNumber, etPassword;
@@ -42,6 +44,7 @@ public class LoginAcitvity extends AppCompatActivity {
         progressDialog = new ProgressDialog(this);
 
 
+        Paper.init(this);
 
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -73,6 +76,12 @@ public class LoginAcitvity extends AppCompatActivity {
     }
 
     private void allowAccessToAccount(final String number, final String password) {
+
+        if(cbRemember.isChecked()){
+            Paper.book().write(Prevalent.userPhoneKey,number);
+            Paper.book().write(Prevalent.userPasswordKey,password);
+        }
+
         final DatabaseReference databaseReference;
         databaseReference = FirebaseDatabase.getInstance().getReference();
 

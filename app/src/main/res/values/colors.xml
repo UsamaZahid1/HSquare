@@ -7,4 +7,8 @@
     <color name="lgrey">#CACACA</color>
     <color name="black">#030303</color>
     <color name="white">#FFFFFF</color>
+    <color name="nav_bar">#DADADA</color>
+    <color name="nav_item_selected">#069EFF</color>
+    <color name="nav_item_others">#666666</color>
+    <color name="navbar">#E90505</color>
 </resources>
