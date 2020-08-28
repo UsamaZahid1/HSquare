@@ -8,13 +8,16 @@ import com.example.hsquare.Fragments.HomeFragment;
 import com.example.hsquare.Fragments.OrdersFragment;
 import com.example.hsquare.Fragments.ProfileFragment;
 import com.example.hsquare.Fragments.SearchFragment;
+import com.example.hsquare.Model.Products;
+import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.LifecycleOwner;
 
-public class HomeActivity extends AppCompatActivity {
+public class HomeActivity extends AppCompatActivity implements LifecycleOwner {
     BottomNavigationView navigationView;
 
     @Override
@@ -55,6 +58,7 @@ public class HomeActivity extends AppCompatActivity {
                 return true;
             }
         });
+        FirebaseRecyclerOptions<Products> options;
 
     }
 }
