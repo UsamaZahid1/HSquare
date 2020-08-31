@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         btn_join = findViewById(R.id.btn_main_join);
         btn_already = findViewById(R.id.btn_main_already);
-        progressDialog=new ProgressDialog(this);
+        progressDialog = new ProgressDialog(this);
 
         Paper.init(this);
 
@@ -39,12 +39,12 @@ public class MainActivity extends AppCompatActivity {
         String userPasswordKey = Paper.book().read(Prevalent.userPasswordKey);
 
         if (userPhoneKey != "" && userPasswordKey != "") {
-            if(!TextUtils.isEmpty(userPhoneKey) && !TextUtils.isEmpty(userPasswordKey)){
+            if (!TextUtils.isEmpty(userPhoneKey) && !TextUtils.isEmpty(userPasswordKey)) {
                 progressDialog.setTitle("Already Logged in");
                 progressDialog.setMessage("Please wait...");
                 progressDialog.setCanceledOnTouchOutside(false);
                 progressDialog.show();
-                allowAccess(userPhoneKey,userPasswordKey);
+                allowAccess(userPhoneKey, userPasswordKey);
 
             }
 
@@ -87,6 +87,7 @@ public class MainActivity extends AppCompatActivity {
                             progressDialog.dismiss();
 
                             Intent intent = new Intent(MainActivity.this, HomeActivity.class);
+                            Prevalent.currentOnlineUser = usersData;
                             startActivity(intent);
 
 

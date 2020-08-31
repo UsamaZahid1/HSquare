@@ -8,6 +8,7 @@ import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -29,6 +30,7 @@ public class RegisterActivity extends AppCompatActivity {
     private EditText etName, etNumber, etPassword, etConfirmP;
     private Button btnRegister;
     private ProgressDialog progressDialog;
+    ImageView ivbackregister;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -41,6 +43,16 @@ public class RegisterActivity extends AppCompatActivity {
         // etConfirmP=findViewById(R.id.et_register_confirmp);
         btnRegister = findViewById(R.id.btn_register_register);
         progressDialog = new ProgressDialog(this);
+        ivbackregister=findViewById(R.id.iv_register_back);
+
+        ivbackregister.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent in=new Intent(RegisterActivity.this,MainActivity.class);
+                startActivity(in);
+            }
+        });
+
 
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override

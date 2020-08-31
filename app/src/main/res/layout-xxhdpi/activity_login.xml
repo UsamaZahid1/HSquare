@@ -53,8 +53,8 @@
             android:layout_marginLeft="17dp"
             android:gravity="center_vertical"
             android:text="Remember me"
-            android:textSize="17sp"
-            android:textStyle="bold" />
+            app:cbd_strokeColor="@color/colorPrimaryDark"
+            android:textSize="17sp" />
 
         <TextView
             android:id="@+id/tv_forget_password"
@@ -84,6 +84,7 @@
         android:textSize="20sp" />
 
     <ImageView
+        android:id="@+id/iv_login_back"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/blackback"

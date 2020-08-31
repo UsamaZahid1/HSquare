@@ -9,6 +9,7 @@ import android.widget.Button;
 
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.hsquare.Model.Users;
@@ -31,6 +32,7 @@ public class LoginAcitvity extends AppCompatActivity {
     private ProgressDialog progressDialog;
     private String parentDbName = "Users";
     private CheckBox cbRemember;
+    ImageView ivBack;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -42,6 +44,15 @@ public class LoginAcitvity extends AppCompatActivity {
         btnLogin = findViewById(R.id.btn_login_login);
         cbRemember = findViewById(R.id.cb_login_rememberme);
         progressDialog = new ProgressDialog(this);
+        ivBack=findViewById(R.id.iv_login_back);
+
+        ivBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent in=new Intent(LoginAcitvity.this,MainActivity.class);
+                startActivity(in);
+            }
+        });
 
 
         Paper.init(this);

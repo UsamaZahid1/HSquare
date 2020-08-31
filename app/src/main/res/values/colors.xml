@@ -3,12 +3,12 @@
     <color name="colorPrimary">#747474</color>
     <color name="colorPrimaryDark">#303030</color>
     <color name="colorAccent">#363636</color>
-    <color name="grey">#747474</color>
+    <color name="grey">#636363</color>
     <color name="lgrey">#CACACA</color>
     <color name="black">#030303</color>
     <color name="white">#FFFFFF</color>
-    <color name="nav_bar">#DADADA</color>
-    <color name="nav_item_selected">#069EFF</color>
-    <color name="nav_item_others">#666666</color>
-    <color name="navbar">#E90505</color>
+    <color name="nav_bar">#D6D5D5</color>
+    <color name="nav_item_selected">#000000</color>
+    <color name="nav_item_others">#333333</color>
+    <color name="tabLayout">#1A1A1A</color>
 </resources>
