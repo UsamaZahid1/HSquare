@@ -1,6 +1,7 @@
 package com.example.hsquare.Fragments;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,7 @@ import com.denzcoskun.imageslider.constants.ScaleTypes;
 import com.denzcoskun.imageslider.models.SlideModel;
 import com.example.hsquare.Adapter.ViewPagerAdapter;
 import com.example.hsquare.Model.Products;
+import com.example.hsquare.ProductsDetailActivity;
 import com.example.hsquare.R;
 import com.example.hsquare.ViewHolder.ProductViewHolder;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
@@ -109,11 +111,21 @@ public class HomeFragment extends Fragment {
 
         FirebaseRecyclerAdapter<Products, ProductViewHolder> adapter = new FirebaseRecyclerAdapter<Products, ProductViewHolder>(options) {
             @Override
-            protected void onBindViewHolder(@NonNull ProductViewHolder holder, int position, @NonNull Products model) {
+            protected void onBindViewHolder(@NonNull ProductViewHolder holder, int position, @NonNull final Products model) {
 
                 holder.tvProductName.setText(model.getPname());
                 holder.tvProductPrice.setText("PKR. " + model.getPrice());
                 Picasso.get().load(model.getImage()).into(holder.ivProductimg);
+
+                holder.itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+
+                        Intent intent=new Intent(getActivity(), ProductsDetailActivity.class);
+                        intent.putExtra("pid",model.getPid());
+                        startActivity(intent);
+                    }
+                });
             }
 
             @NonNull

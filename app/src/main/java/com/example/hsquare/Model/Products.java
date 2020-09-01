@@ -1,18 +1,27 @@
 package com.example.hsquare.Model;
 
 public class Products {
-    private String pname, description, price, image, category;
+    private String pid,pname, description, price, image, category;
 
     public Products() {
 
     }
 
-    public Products(String pname, String description, String price, String image, String category) {
+    public Products(String pid, String pname, String description, String price, String image, String category) {
+        this.pid = pid;
         this.pname = pname;
         this.description = description;
         this.price = price;
         this.image = image;
         this.category = category;
+    }
+
+    public String getPid() {
+        return pid;
+    }
+
+    public void setPid(String pid) {
+        this.pid = pid;
     }
 
     public String getPname() {
