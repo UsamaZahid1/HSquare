@@ -3,21 +3,34 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/profilebg">
+    android:background="@drawable/profilebgg">
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/civ_profileimage"
-        android:layout_width="130dp"
-        android:layout_height="130dp"
-        android:layout_marginLeft="200dp"
-        android:layout_marginTop="85dp"
+        android:layout_width="140dp"
+        android:layout_height="140dp"
+        android:layout_marginLeft="190dp"
+        android:layout_marginTop="83dp"
         android:src="@drawable/profile" />
 
-    <ScrollView
+    <TextView
+        android:id="@+id/tv_profile_changepic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Change Picture"
+        android:layout_toRightOf="@id/civ_profileimage"
+        android:layout_marginTop="130dp"
+        android:layout_marginLeft="10dp"
+        android:textSize="18sp"
+        android:textColor="@color/black"
+        android:textStyle="bold"/>
+
+
+    <androidx.core.widget.NestedScrollView
         android:id="@+id/scrollView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="240dp">
+        android:layout_marginTop="270dp">
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
@@ -41,7 +54,6 @@
                     android:layout_marginTop="10dp"
                     android:layout_marginRight="15dp"
                     android:hint="Full Name"
-                    android:inputType="number"
                     android:padding="18dp"
                     android:textColor="@color/black"
                     android:textSize="18sp" />
@@ -55,6 +67,7 @@
                     android:layout_marginTop="15dp"
                     android:layout_marginRight="15dp"
                     android:hint="Phone Number"
+                    android:inputType="number"
                     android:padding="18dp"
                     android:textSize="18sp" />
 
@@ -81,7 +94,6 @@
                     android:layout_marginTop="10dp"
                     android:layout_marginRight="15dp"
                     android:hint="Address"
-                    android:inputType="textPassword"
                     android:padding="18dp"
                     android:textColor="@color/black"
                     android:textSize="18sp" />
@@ -107,7 +119,7 @@
 
         </androidx.cardview.widget.CardView>
 
-    </ScrollView>
+    </androidx.core.widget.NestedScrollView>
 
 
 </RelativeLayout>
