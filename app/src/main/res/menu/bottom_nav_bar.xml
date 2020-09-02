@@ -4,32 +4,32 @@
     <item
         android:id="@+id/nav_profile"
         android:enabled="true"
-        android:icon="@drawable/user"
+        android:icon="@drawable/profile_navbar"
         android:title="Profile" />
 
 
     <item
         android:id="@+id/nav_search"
         android:enabled="true"
-        android:icon="@drawable/search"
+        android:icon="@drawable/search_navbar"
         android:title="Search"></item>
 
     <item
         android:id="@+id/nav_home"
         android:enabled="true"
-        android:icon="@drawable/home"
+        android:icon="@drawable/home_navbar"
         android:iconTint="@null"
         android:title="Home"></item>
 
     <item
         android:id="@+id/nav_orders"
         android:enabled="true"
-        android:icon="@drawable/orders"
+        android:icon="@drawable/order_navbar"
         android:title="Orders" />
     <item
         android:id="@+id/nav_cart"
         android:enabled="true"
-        android:icon="@drawable/cart"
+        android:icon="@drawable/cart_navbar"
         android:title="Cart" />
 
 </menu>
