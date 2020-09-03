@@ -2,7 +2,7 @@
 <resources>
     <color name="colorPrimary">#747474</color>
     <color name="colorPrimaryDark">#303030</color>
-    <color name="colorAccent">#363636</color>
+    <color name="colorAccent">#1A1A1A</color>
     <color name="grey">#636363</color>
     <color name="lgrey">#CACACA</color>
     <color name="black">#030303</color>
@@ -11,4 +11,5 @@
     <color name="nav_item_selected">#FFFFFF</color>
     <color name="nav_item_others">#A2A2A2</color>
     <color name="tabLayout">#1A1A1A</color>
+    <color name="red">#FF0101</color>
 </resources>

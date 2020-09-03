@@ -24,6 +24,7 @@ import com.squareup.picasso.Picasso;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.UUID;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -84,6 +85,8 @@ public class ProductsDetailActivity extends AppCompatActivity {
         cartMap.put("time", saveCurrentTime);
         cartMap.put("quantity", numberButton.getNumber());
         cartMap.put("discount", "");
+
+        String orderId= UUID.randomUUID().toString();
 
         cartListRefernce.child("Users Cart").child(Prevalent.currentOnlineUser.getPhone()).child("Products")
                 .child(productId)

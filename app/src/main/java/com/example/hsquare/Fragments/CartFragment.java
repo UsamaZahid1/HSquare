@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.hsquare.ConfirmOrderAcitvity;
 import com.example.hsquare.HomeActivity;
 import com.example.hsquare.Model.Cart;
 import com.example.hsquare.Prevalent.Prevalent;
@@ -21,8 +22,11 @@ import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -34,7 +38,10 @@ public class CartFragment extends Fragment {
 
     private RecyclerView recyclerView;
     private Button btnProceed;
-    private TextView tvTotalPrice;
+    private TextView tvTotalPrice, tvEmplty;
+    boolean flag = false;
+
+    private int overAllTotalPrice = 0;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -45,9 +52,42 @@ public class CartFragment extends Fragment {
         recyclerView = view.findViewById(R.id.rv_cart);
         btnProceed = view.findViewById(R.id.btn_cart_proceed);
         tvTotalPrice = view.findViewById(R.id.tv_cart_totalprice);
+        tvEmplty = view.findViewById(R.id.tv_cart_ifemplty);
 
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+//checking if cart is empty or not
+        DatabaseReference checkRef = FirebaseDatabase.getInstance().getReference().child("Cart List");
+        checkRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.hasChild("Users Cart")) {
+
+
+                    btnProceed.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            Intent intent = new Intent(getContext(), ConfirmOrderAcitvity.class);
+                            intent.putExtra("totalAmount", String.valueOf(overAllTotalPrice));
+                            startActivity(intent);
+                        }
+                    });
+
+                } else {
+                    btnProceed.setVisibility(View.GONE);
+                    tvEmplty.setVisibility(View.VISIBLE);
+
+                    //Toast.makeText(getContext(), "Cart is empty, Please Add some items to cart!", Toast.LENGTH_LONG).show();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
 
         return view;
     }
@@ -71,14 +111,16 @@ public class CartFragment extends Fragment {
 
                 holder.tvPname.setText(model.getPname());
                 holder.tvprice.setText("Price : " + model.getPrice());
-                holder.tvquantity.setText("Quantity : " + model.getQuantity());
+                holder.tvquantity.setText("Qty : " + model.getQuantity());
 
+                int singleItemTotalPrice = ((Integer.valueOf(model.getPrice()))) * Integer.valueOf(model.getQuantity());
+                overAllTotalPrice = overAllTotalPrice + singleItemTotalPrice;
+                tvTotalPrice.setText("Total: Rs. " + overAllTotalPrice);
                 holder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         CharSequence options[] = new CharSequence[]
                                 {
-
                                         "Edit",
                                         "Remove"
                                 };
@@ -105,7 +147,7 @@ public class CartFragment extends Fragment {
 
                                                     if (task.isSuccessful()) {
                                                         Toast.makeText(getActivity(), "Item removed successfully!", Toast.LENGTH_SHORT).show();
-                                                        Intent intent=new Intent(getContext(), HomeActivity.class);
+                                                        Intent intent = new Intent(getContext(), HomeActivity.class);
                                                         startActivity(intent);
                                                     }
                                                 }
