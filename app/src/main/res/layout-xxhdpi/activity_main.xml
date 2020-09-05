@@ -47,7 +47,7 @@
         android:text="Quick Shop" />
 
     <Button
-        android:id="@+id/bt_main_googlesign"
+        android:id="@+id/btn_main_googlesign"
         android:layout_width="match_parent"
         android:layout_height="70dp"
         android:layout_marginLeft="15dp"

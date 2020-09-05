@@ -20,12 +20,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ConfirmOrderAcitvity"></activity>
+        <activity android:name=".HomeGuestAcitvity"></activity>
+        <activity android:name=".ForgetPasswordActivity" />
+        <activity android:name=".ConfirmOrderAcitvity" />
         <activity android:name=".ProductsDetailActivity" />
         <activity
             android:name=".HomeActivity"
-            android:windowSoftInputMode="adjustPan"
-            />
+            android:windowSoftInputMode="adjustPan" />
         <activity android:name=".SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -36,6 +37,7 @@
         <activity android:name=".MainActivity" />
         <activity android:name=".LoginAcitvity" />
         <activity android:name=".RegisterActivity" />
+        <activity android:name=".ProductsDetailGuestActivity"/>
         <activity
             android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
             android:theme="@style/Base.Theme.AppCompat" />

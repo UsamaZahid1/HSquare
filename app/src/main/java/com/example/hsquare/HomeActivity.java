@@ -35,9 +35,9 @@ public class HomeActivity extends AppCompatActivity implements LifecycleOwner {
         imageSlider = findViewById(R.id.imageslider_home);
 
 
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                    new HomeFragment()).commit();
-            navigationView.setSelectedItemId(R.id.nav_home);
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                new HomeFragment()).commit();
+        navigationView.setSelectedItemId(R.id.nav_home);
 
         navigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override

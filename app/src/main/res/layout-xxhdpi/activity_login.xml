@@ -57,7 +57,7 @@
             android:textSize="17sp" />
 
         <TextView
-            android:id="@+id/tv_forget_password"
+            android:id="@+id/tv_login_forgetpassword"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="105dp"

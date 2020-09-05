@@ -22,7 +22,7 @@ import java.util.UUID;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-public class ConfirmOrderAcitvity extends AppCompatActivity {
+public class ConfirmGuestOrderAcitvity extends AppCompatActivity {
 
     EditText etName, etAddress, etNumber, etCityName;
     Button btnConfirm;
@@ -31,15 +31,15 @@ public class ConfirmOrderAcitvity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_confirm_order_acitvity);
+        setContentView(R.layout.activity_confirm_guestorder);
 
         totalAmount = getIntent().getStringExtra("totalAmount");
 
-        etName = findViewById(R.id.et_confirm_name);
-        etAddress = findViewById(R.id.et_confirm_address);
-        etNumber = findViewById(R.id.et_confirm_name);
-        etCityName = findViewById(R.id.et_confirm_cityname);
-        btnConfirm = findViewById(R.id.btn_confirm_confirm);
+        etName = findViewById(R.id.et_confirm_guestname);
+        etAddress = findViewById(R.id.et_confirm_guestaddress);
+        etNumber = findViewById(R.id.et_confirm_guestname);
+        etCityName = findViewById(R.id.et_confirm_guestcityname);
+        btnConfirm = findViewById(R.id.btn_confirm_guestconfirm);
 
         btnConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -81,7 +81,7 @@ public class ConfirmOrderAcitvity extends AppCompatActivity {
 
         String orderId= UUID.randomUUID().toString();
 
-//orderId because user can put multiple order
+
         DatabaseReference orderRef = FirebaseDatabase.getInstance().getReference().child("Orders")
                 .child(Prevalent.currentOnlineUser.getPhone()).child(orderId);
 
@@ -110,8 +110,8 @@ public class ConfirmOrderAcitvity extends AppCompatActivity {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
                                     if (task.isSuccessful()) {
-                                        Toast.makeText(ConfirmOrderAcitvity.this, "Your Order has been placed!", Toast.LENGTH_SHORT).show();
-                                        Intent intent = new Intent(ConfirmOrderAcitvity.this, HomeActivity.class);
+                                        Toast.makeText(ConfirmGuestOrderAcitvity.this, "Your Order has been placed!", Toast.LENGTH_SHORT).show();
+                                        Intent intent = new Intent(ConfirmGuestOrderAcitvity.this, HomeActivity.class);
                                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                         startActivity(intent);
                                     }

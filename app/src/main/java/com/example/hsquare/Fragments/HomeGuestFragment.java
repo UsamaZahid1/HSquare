@@ -6,20 +6,16 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
-import android.widget.LinearLayout;
 
 import com.denzcoskun.imageslider.ImageSlider;
 import com.denzcoskun.imageslider.constants.ScaleTypes;
 import com.denzcoskun.imageslider.models.SlideModel;
-import com.example.hsquare.Adapter.ViewPagerAdapter;
 import com.example.hsquare.Model.Products;
-import com.example.hsquare.ProductsDetailActivity;
+import com.example.hsquare.ProductsDetailGuestActivity;
 import com.example.hsquare.R;
 import com.example.hsquare.ViewHolder.ProductViewHolder;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
-import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -34,49 +30,25 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.viewpager.widget.ViewPager;
 
 
-public class HomeFragment extends Fragment {
+public class HomeGuestFragment extends Fragment {
 
     ImageSlider imageSlider;
     private DatabaseReference productReference;
     private RecyclerView recyclerView;
     RecyclerView.LayoutManager layoutManager;
-    private ViewPager viewPager;
-    private TabLayout tabLayout;
-    FrameLayout frameLayout;
-    LinearLayout layout_tab;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_home, container, false);
+        View view = inflater.inflate(R.layout.fragment_fragment_home_guest, container, false);
 
-        recyclerView = view.findViewById(R.id.recyclerview_home);
-        imageSlider = view.findViewById(R.id.imageslider_home);
-        layout_tab=view.findViewById(R.id.layout_tab);
-        frameLayout=view.findViewById(R.id.layout_frame);
+        recyclerView = view.findViewById(R.id.recyclerview_guesthome);
+        imageSlider = view.findViewById(R.id.imageslider_guesthome);
 
-
-//        viewPager = view.findViewById(R.id.view_pager);
-        //tabLayout = view.findViewById(R.id.tab_layout);
-
-
-//        ViewPagerAdapter pagerAdapter = new ViewPagerAdapter(getFragmentManager(), 5);
-//        //Adding fragment
-//        pagerAdapter.addFragment(new HomeFragment(), "All");
-//        pagerAdapter.addFragment(new KurtaFragment(), "Kurta");
-//        pagerAdapter.addFragment(new ShalwarKameezFragment(), "Shalwar Kameez");
-//        pagerAdapter.addFragment(new TShirtFragment(), "T-Shirts");
-//        pagerAdapter.addFragment(new JeansFragment(), "Jeans");
-        //adapter setup for viewpager
-        //viewPager.setAdapter(pagerAdapter);
-      //  tabLayout.setupWithViewPager(viewPager);
-
-
-//---------------------------------imageSlier---------------------------------------
+        //---------------------------------imageSlier---------------------------------------
         final List<SlideModel> slideModel = new ArrayList<>();
         FirebaseDatabase.getInstance().getReference().child("ImageSlider")
                 .addListenerForSingleValueEvent(new ValueEventListener() {
@@ -106,7 +78,6 @@ public class HomeFragment extends Fragment {
         productReference = FirebaseDatabase.getInstance().getReference().child("Products");
         return view;
     }
-
     @Override
     public void onStart() {
         super.onStart();
@@ -127,7 +98,7 @@ public class HomeFragment extends Fragment {
                     @Override
                     public void onClick(View view) {
 
-                        Intent intent=new Intent(getActivity(), ProductsDetailActivity.class);
+                        Intent intent=new Intent(getActivity(), ProductsDetailGuestActivity.class);
                         intent.putExtra("pid",model.getPid());
                         startActivity(intent);
                     }

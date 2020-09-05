@@ -39,7 +39,6 @@ public class CartFragment extends Fragment {
     private RecyclerView recyclerView;
     private Button btnProceed;
     private TextView tvTotalPrice, tvEmplty;
-    boolean flag = false;
 
     private int overAllTotalPrice = 0;
 

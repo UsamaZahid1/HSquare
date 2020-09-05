@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black"
+    tools:context=".ProductsDetailActivity">
+
+    <ImageView
+        android:id="@+id/iv_products_guestdetail_productsimg"
+        android:layout_width="match_parent"
+        android:layout_height="240dp"
+        android:scaleType="fitXY"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_products_guestdetail_pname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/iv_products_guestdetail_productsimg"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="25dp"
+        android:text="Product Name"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tv_products_guestdetail_pdesc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_products_guestdetail_pname"
+        android:layout_marginStart="23dp"
+        android:textColor="@color/white"
+        android:layout_marginTop="10dp"
+        android:text="Product Description"
+        android:textSize="16dp"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_products_guestdetail_pprice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/iv_products_guestdetail_productsimg"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="25dp"
+        android:layout_marginEnd="20dp"
+        android:text="Prodcut Price"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <com.cepheuen.elegantnumberbutton.view.ElegantNumberButton
+        android:id="@+id/btn_products_guestdetail_numberbutton"
+        android:layout_width="220dp"
+        android:layout_height="55dp"
+        android:layout_below="@id/tv_products_guestdetail_pdesc"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        app:initialNumber="1"
+        app:finalNumber="10"
+        android:elevation="10dp"
+        app:backGroundColor="#1A1A1A"
+        app:textSize="14dp"></com.cepheuen.elegantnumberbutton.view.ElegantNumberButton>
+
+    <Button
+        android:id="@+id/btn_products_guestdetails_addtocart"
+        android:layout_width="220dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/btn_products_guestdetail_numberbutton"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginBottom="15dp"
+        android:background="#1A1A1A"
+        android:gravity="center"
+        android:padding="18dp"
+        android:text="Add to Cart"
+        android:drawableLeft="@drawable/ic_add_shopping_cart_black_24dp"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="18sp" />
+</RelativeLayout>

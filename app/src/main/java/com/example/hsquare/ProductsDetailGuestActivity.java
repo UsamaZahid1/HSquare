@@ -11,7 +11,6 @@ import android.widget.Toast;
 
 import com.cepheuen.elegantnumberbutton.view.ElegantNumberButton;
 import com.example.hsquare.Model.Products;
-import com.example.hsquare.Prevalent.Prevalent;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
@@ -29,33 +28,36 @@ import java.util.UUID;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-public class ProductsDetailActivity extends AppCompatActivity {
+public class ProductsDetailGuestActivity extends AppCompatActivity {
 
     private TextView tvPname, tvPdesc, tvPprice;
     private ImageView ivPimg;
     private ElegantNumberButton numberButton;
     private Button btnAddToCart;
-    private String productId;
+    private String productId, guestId;
+    private static String guestTime, guestDate;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_products_detail);
+        setContentView(R.layout.activity_product_guestdetail);
+
+
 
         productId = getIntent().getStringExtra("pid");
-        Log.d("mtag", productId);
 
-        tvPname = findViewById(R.id.tv_products_detail_pname);
-        tvPdesc = findViewById(R.id.tv_products_detail_pdesc);
-        tvPprice = findViewById(R.id.tv_products_detail_pprice);
-        ivPimg = findViewById(R.id.iv_products_detail_productsimg);
-        btnAddToCart = findViewById(R.id.btn_products_details_addtocart);
-        numberButton = findViewById(R.id.btn_products_detail_numberbutton);
+        tvPname = findViewById(R.id.tv_products_guestdetail_pname);
+        tvPdesc = findViewById(R.id.tv_products_guestdetail_pdesc);
+        tvPprice = findViewById(R.id.tv_products_guestdetail_pprice);
+        ivPimg = findViewById(R.id.iv_products_guestdetail_productsimg);
+        btnAddToCart = findViewById(R.id.btn_products_guestdetails_addtocart);
+        numberButton = findViewById(R.id.btn_products_guestdetail_numberbutton);
 
         btnAddToCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 addingToCartList();
             }
         });
@@ -86,8 +88,7 @@ public class ProductsDetailActivity extends AppCompatActivity {
         cartMap.put("quantity", numberButton.getNumber());
         cartMap.put("discount", "");
 
-
-        cartListRefernce.child("Users Cart").child(Prevalent.currentOnlineUser.getPhone()).child("Products")
+        cartListRefernce.child("Guest Cart").child(Singleton.obj.guestid).child("Products")
                 .child(productId)
                 .updateChildren(cartMap)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -95,13 +96,13 @@ public class ProductsDetailActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()) {
 
-                            cartListRefernce.child("Admin Cart").child(Prevalent.currentOnlineUser.getPhone()).child("Products")
+                            cartListRefernce.child("Admin Cart").child("Guest").child(Singleton.obj.guestid).child("Products")
                                     .child(productId)
                                     .updateChildren(cartMap).addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
-                                    Toast.makeText(ProductsDetailActivity.this, "Added to Cart List...", Toast.LENGTH_SHORT).show();
-                                    Intent intent=new Intent(ProductsDetailActivity.this,HomeActivity.class);
+                                    Toast.makeText(ProductsDetailGuestActivity.this, "Added to Cart List...", Toast.LENGTH_SHORT).show();
+                                    Intent intent = new Intent(ProductsDetailGuestActivity.this, HomeGuestAcitvity.class);
                                     startActivity(intent);
 
                                 }
@@ -109,6 +110,8 @@ public class ProductsDetailActivity extends AppCompatActivity {
                         }
                     }
                 });
+
+
     }
 
     private void getProductDetails(String pid) {
@@ -133,5 +136,11 @@ public class ProductsDetailActivity extends AppCompatActivity {
             }
         });
     }
+
+//    @Override
+//    protected void onStart() {
+//        super.onStart();
+//        Singleton.obj.guestid= UUID.randomUUID().toString();
+//    }
 }
 

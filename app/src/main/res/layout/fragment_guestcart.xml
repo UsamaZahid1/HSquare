@@ -5,7 +5,7 @@
     android:background="@color/black">
 
     <TextView
-        android:id="@+id/tv_cart_totalprice"
+        android:id="@+id/tv_guestcart_totalprice"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:background="#1A1A1A"
@@ -15,14 +15,14 @@
         android:textSize="25sp" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_cart"
+        android:id="@+id/rv_guestcart"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/btn_guestcart_proceed"
-        android:layout_below="@id/tv_cart_totalprice" />
+        android:layout_below="@id/tv_guestcart_totalprice" />
 
     <TextView
-        android:id="@+id/tv_cart_ifemplty"
+        android:id="@+id/tv_guestcart_ifemplty"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Cart is empty!"
@@ -34,7 +34,7 @@
         />
 
     <Button
-        android:id="@+id/btn_cart_proceed"
+        android:id="@+id/btn_guestcart_proceed"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_alignParentBottom="true"
