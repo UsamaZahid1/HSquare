@@ -3,7 +3,7 @@ package com.example.hsquare;
 public class Singleton {
 
     public static Singleton obj = new Singleton();
-    static String guestid;
+    public static String guestid;
 
    static String getId() {
     return guestid;

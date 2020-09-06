@@ -113,7 +113,6 @@ public class ProductsDetailActivity extends AppCompatActivity {
 
     private void getProductDetails(String pid) {
         DatabaseReference productReference = FirebaseDatabase.getInstance().getReference().child("Products");
-        Log.d("stag", pid);
         productReference.child(pid).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -134,4 +133,3 @@ public class ProductsDetailActivity extends AppCompatActivity {
         });
     }
 }
-

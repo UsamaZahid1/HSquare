@@ -13,6 +13,7 @@ import com.denzcoskun.imageslider.ImageSlider;
 import com.denzcoskun.imageslider.constants.ScaleTypes;
 import com.denzcoskun.imageslider.models.SlideModel;
 import com.example.hsquare.Adapter.ViewPagerAdapter;
+import com.example.hsquare.HomeActivity;
 import com.example.hsquare.Model.Products;
 import com.example.hsquare.ProductsDetailActivity;
 import com.example.hsquare.R;
@@ -42,11 +43,6 @@ public class HomeFragment extends Fragment {
     ImageSlider imageSlider;
     private DatabaseReference productReference;
     private RecyclerView recyclerView;
-    RecyclerView.LayoutManager layoutManager;
-    private ViewPager viewPager;
-    private TabLayout tabLayout;
-    FrameLayout frameLayout;
-    LinearLayout layout_tab;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -54,26 +50,8 @@ public class HomeFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
-        recyclerView = view.findViewById(R.id.recyclerview_home);
         imageSlider = view.findViewById(R.id.imageslider_home);
-        layout_tab=view.findViewById(R.id.layout_tab);
-        frameLayout=view.findViewById(R.id.layout_frame);
-
-
-//        viewPager = view.findViewById(R.id.view_pager);
-        //tabLayout = view.findViewById(R.id.tab_layout);
-
-
-//        ViewPagerAdapter pagerAdapter = new ViewPagerAdapter(getFragmentManager(), 5);
-//        //Adding fragment
-//        pagerAdapter.addFragment(new HomeFragment(), "All");
-//        pagerAdapter.addFragment(new KurtaFragment(), "Kurta");
-//        pagerAdapter.addFragment(new ShalwarKameezFragment(), "Shalwar Kameez");
-//        pagerAdapter.addFragment(new TShirtFragment(), "T-Shirts");
-//        pagerAdapter.addFragment(new JeansFragment(), "Jeans");
-        //adapter setup for viewpager
-        //viewPager.setAdapter(pagerAdapter);
-      //  tabLayout.setupWithViewPager(viewPager);
+        recyclerView = view.findViewById(R.id.recyclerview_home);
 
 
 //---------------------------------imageSlier---------------------------------------
@@ -99,11 +77,13 @@ public class HomeFragment extends Fragment {
 
 
         recyclerView.setHasFixedSize(true);
-        layoutManager = new GridLayoutManager(view.getContext(), 2);
-        recyclerView.setLayoutManager(layoutManager);
+
+        recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
 
 
         productReference = FirebaseDatabase.getInstance().getReference().child("Products");
+
+
         return view;
     }
 
@@ -127,8 +107,8 @@ public class HomeFragment extends Fragment {
                     @Override
                     public void onClick(View view) {
 
-                        Intent intent=new Intent(getActivity(), ProductsDetailActivity.class);
-                        intent.putExtra("pid",model.getPid());
+                        Intent intent = new Intent(getContext(), ProductsDetailActivity.class);
+                        intent.putExtra("pid", model.getPid());
                         startActivity(intent);
                     }
                 });
@@ -147,4 +127,6 @@ public class HomeFragment extends Fragment {
         adapter.startListening();
 
     }
+
+
 }

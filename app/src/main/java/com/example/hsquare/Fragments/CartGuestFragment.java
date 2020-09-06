@@ -5,7 +5,6 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +12,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.hsquare.ConfirmGuestOrderAcitvity;
 import com.example.hsquare.ConfirmOrderAcitvity;
 import com.example.hsquare.HomeGuestAcitvity;
 import com.example.hsquare.Model.Cart;
@@ -24,8 +24,11 @@ import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -46,26 +49,24 @@ public class CartGuestFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_guestcart, container, false);
-        recyclerView = view.findViewById(R.id.rv_guestcart);
-        btnProceed = view.findViewById(R.id.btn_guestcart_proceed);
-        tvTotalPrice = view.findViewById(R.id.tv_guestcart_totalprice);
-        tvEmplty = view.findViewById(R.id.tv_guestcart_ifemplty);
-
-        guestId=getActivity().getIntent().getStringExtra("guest id");
-
-
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-
-
-        btnProceed.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getContext(), ConfirmOrderAcitvity.class);
-                intent.putExtra("totalAmount", String.valueOf(overAllTotalPrice));
-                startActivity(intent);
-            }
-        });
+//        recyclerView = view.findViewById(R.id.rv_guestcart);
+//        btnProceed = view.findViewById(R.id.btn_guestcart_proceed);
+//        tvTotalPrice = view.findViewById(R.id.tv_guestcart_totalprice);
+//        tvEmplty = view.findViewById(R.id.tv_guestcart_ifemplty);
+//
+//
+//        recyclerView.setHasFixedSize(true);
+//        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+//
+//
+//        btnProceed.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent = new Intent(getContext(), ConfirmGuestOrderAcitvity.class);
+//                intent.putExtra("totalAmount", String.valueOf(overAllTotalPrice));
+//                startActivity(intent);
+//            }
+//        });
 
 //checking if cart is empty or not
 //        DatabaseReference checkRef = FirebaseDatabase.getInstance().getReference().child("Cart List");
@@ -110,10 +111,8 @@ public class CartGuestFragment extends Fragment {
 //        final DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("Cart List");
 //
 //        FirebaseRecyclerOptions<Cart> options = new FirebaseRecyclerOptions.Builder<Cart>()
-//                .setQuery(databaseReference.child("Guest Cart").child("Products").child(Singleton.obj.guestid), Cart.class)
+//                .setQuery(databaseReference.child("Guest Cart").child(Singleton.obj.guestid).child("Products"), Cart.class)
 //                .build();
-//        Log.d("gtag",guestId);
-//
 //
 //
 //        FirebaseRecyclerAdapter<Cart, CartViewHolder> adapter = new FirebaseRecyclerAdapter<Cart, CartViewHolder>(options) {

@@ -58,17 +58,17 @@ public class MainActivity extends AppCompatActivity {
 
         //------------------quickshop-----------------
 
-        btnQuickShop.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                Singleton.obj.guestid=UUID.randomUUID().toString();
-
-                Intent intent = new Intent(MainActivity.this, HomeGuestAcitvity.class);
-
-                startActivity(intent);
-            }
-        });
+//        btnQuickShop.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//
+//                Singleton.obj.guestid=UUID.randomUUID().toString();
+//
+//                Intent intent = new Intent(MainActivity.this, HomeGuestAcitvity.class);
+//
+//                startActivity(intent);
+//            }
+//        });
 
 
 

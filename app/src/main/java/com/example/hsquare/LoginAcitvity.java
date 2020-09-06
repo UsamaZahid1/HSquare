@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
+import com.rey.material.widget.CheckBox;
 import android.widget.Button;
 
 import android.widget.CompoundButton;
@@ -19,7 +20,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.rey.material.widget.CheckBox;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -32,6 +32,7 @@ public class LoginAcitvity extends AppCompatActivity {
     private ProgressDialog progressDialog;
     private String parentDbName = "Users";
     private CheckBox cbRemember;
+
     ImageView ivBack;
 
     @Override
@@ -109,6 +110,7 @@ public class LoginAcitvity extends AppCompatActivity {
                             progressDialog.dismiss();
 
                             Intent intent = new Intent(LoginAcitvity.this, HomeActivity.class);
+                            Prevalent.currentOnlineUser = usersData;
                             startActivity(intent);
 
 
