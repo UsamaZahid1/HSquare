@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
         btn_join = findViewById(R.id.btn_main_join);
         btn_already = findViewById(R.id.btn_main_already);
         btnQuickShop = findViewById(R.id.btn_main_quickshop);
-        btnGoogle = findViewById(R.id.btn_main_googlesign);
+//        btnGoogle = findViewById(R.id.btn_main_googlesign);
         progressDialog = new ProgressDialog(this);
 
         Paper.init(this);
@@ -58,17 +58,17 @@ public class MainActivity extends AppCompatActivity {
 
         //------------------quickshop-----------------
 
-//        btnQuickShop.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//
-//                Singleton.obj.guestid=UUID.randomUUID().toString();
-//
-//                Intent intent = new Intent(MainActivity.this, HomeGuestAcitvity.class);
-//
-//                startActivity(intent);
-//            }
-//        });
+        btnQuickShop.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Singleton.obj.guestid=UUID.randomUUID().toString();
+
+                Intent intent = new Intent(MainActivity.this, HomeGuestAcitvity.class);
+
+                startActivity(intent);
+            }
+        });
 
 
 

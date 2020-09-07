@@ -12,4 +12,6 @@
     <color name="nav_item_others">#A2A2A2</color>
     <color name="tabLayout">#1A1A1A</color>
     <color name="red">#FF0101</color>
+    <color name="gradietnStart">#000000</color>
+    <color name="gradietnEnd">#232323</color>
 </resources>

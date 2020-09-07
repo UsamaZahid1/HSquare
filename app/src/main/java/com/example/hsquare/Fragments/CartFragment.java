@@ -57,11 +57,11 @@ public class CartFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
 //checking if cart is empty or not
-        DatabaseReference checkRef = FirebaseDatabase.getInstance().getReference().child("Cart List");
+        DatabaseReference checkRef = FirebaseDatabase.getInstance().getReference().child("Cart List").child("Users Cart");
         checkRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.hasChild("Users Cart")) {
+                if (snapshot.hasChild(Prevalent.currentOnlineUser.getPhone())) {
 
 
                     btnProceed.setOnClickListener(new View.OnClickListener() {

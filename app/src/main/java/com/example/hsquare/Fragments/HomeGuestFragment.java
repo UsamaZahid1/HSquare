@@ -44,78 +44,78 @@ public class HomeGuestFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_fragment_home_guest, container, false);
-//
-//        recyclerView = view.findViewById(R.id.recyclerview_guesthome);
-//        imageSlider = view.findViewById(R.id.imageslider_guesthome);
-//
-//        //---------------------------------imageSlier---------------------------------------
-//        final List<SlideModel> slideModel = new ArrayList<>();
-//        FirebaseDatabase.getInstance().getReference().child("ImageSlider")
-//                .addListenerForSingleValueEvent(new ValueEventListener() {
-//                    @Override
-//                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                        for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-//                            slideModel.add(new SlideModel(dataSnapshot.child("url")
-//                                    .getValue().toString(), dataSnapshot.child("title").getValue().toString(), ScaleTypes.FIT));
-//                        }
-//                        imageSlider.setImageList(slideModel, ScaleTypes.FIT);
-//                        imageSlider.startSliding(1500);
-//
-//                    }
-//
-//                    @Override
-//                    public void onCancelled(@NonNull DatabaseError error) {
-//
-//                    }
-//                });
-//
-//
-//        recyclerView.setHasFixedSize(true);
-//        layoutManager = new GridLayoutManager(view.getContext(), 2);
-//        recyclerView.setLayoutManager(layoutManager);
-//
-//
-//        productReference = FirebaseDatabase.getInstance().getReference().child("Products");
+
+        recyclerView = view.findViewById(R.id.recyclerview_guesthome);
+        imageSlider = view.findViewById(R.id.imageslider_guesthome);
+
+        //---------------------------------imageSlier---------------------------------------
+        final List<SlideModel> slideModel = new ArrayList<>();
+        FirebaseDatabase.getInstance().getReference().child("ImageSlider")
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                            slideModel.add(new SlideModel(dataSnapshot.child("url")
+                                    .getValue().toString(), dataSnapshot.child("title").getValue().toString(), ScaleTypes.FIT));
+                        }
+                        imageSlider.setImageList(slideModel, ScaleTypes.FIT);
+                        imageSlider.startSliding(1500);
+
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+
+
+        recyclerView.setHasFixedSize(true);
+        layoutManager = new GridLayoutManager(view.getContext(), 2);
+        recyclerView.setLayoutManager(layoutManager);
+
+
+        productReference = FirebaseDatabase.getInstance().getReference().child("Products");
         return view;
     }
-//    @Override
-//    public void onStart() {
-//        super.onStart();
-//
-//        FirebaseRecyclerOptions<Products> options = new FirebaseRecyclerOptions.Builder<Products>()
-//                .setQuery(productReference, Products.class)
-//                .build();
-//
-//        FirebaseRecyclerAdapter<Products, ProductViewHolder> adapter = new FirebaseRecyclerAdapter<Products, ProductViewHolder>(options) {
-//            @Override
-//            protected void onBindViewHolder(@NonNull ProductViewHolder holder, int position, @NonNull final Products model) {
-//
-//                holder.tvProductName.setText(model.getPname());
-//                holder.tvProductPrice.setText("PKR. " + model.getPrice());
-//                Picasso.get().load(model.getImage()).into(holder.ivProductimg);
-//
-//                holder.itemView.setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View view) {
-//
-//                        Intent intent=new Intent(getActivity(), ProductsDetailGuestActivity.class);
-//                        intent.putExtra("pid",model.getPid());
-//                        startActivity(intent);
-//                    }
-//                });
-//            }
-//
-//            @NonNull
-//            @Override
-//            public ProductViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-//                View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.product_list_item, parent, false);
-//
-//                return new ProductViewHolder(view);
-//            }
-//        };
-//        recyclerView.setAdapter(adapter);
-//
-//        adapter.startListening();
-//
-//    }
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        FirebaseRecyclerOptions<Products> options = new FirebaseRecyclerOptions.Builder<Products>()
+                .setQuery(productReference, Products.class)
+                .build();
+
+        FirebaseRecyclerAdapter<Products, ProductViewHolder> adapter = new FirebaseRecyclerAdapter<Products, ProductViewHolder>(options) {
+            @Override
+            protected void onBindViewHolder(@NonNull ProductViewHolder holder, int position, @NonNull final Products model) {
+
+                holder.tvProductName.setText(model.getPname());
+                holder.tvProductPrice.setText("PKR. " + model.getPrice());
+                Picasso.get().load(model.getImage()).into(holder.ivProductimg);
+
+                holder.itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+
+                        Intent intent=new Intent(getActivity(), ProductsDetailGuestActivity.class);
+                        intent.putExtra("pid",model.getPid());
+                        startActivity(intent);
+                    }
+                });
+            }
+
+            @NonNull
+            @Override
+            public ProductViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+                View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.product_list_item, parent, false);
+
+                return new ProductViewHolder(view);
+            }
+        };
+        recyclerView.setAdapter(adapter);
+
+        adapter.startListening();
+
+    }
 }

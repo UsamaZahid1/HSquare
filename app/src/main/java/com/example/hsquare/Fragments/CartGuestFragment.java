@@ -49,16 +49,16 @@ public class CartGuestFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_guestcart, container, false);
-//        recyclerView = view.findViewById(R.id.rv_guestcart);
-//        btnProceed = view.findViewById(R.id.btn_guestcart_proceed);
-//        tvTotalPrice = view.findViewById(R.id.tv_guestcart_totalprice);
-//        tvEmplty = view.findViewById(R.id.tv_guestcart_ifemplty);
-//
-//
-//        recyclerView.setHasFixedSize(true);
-//        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-//
-//
+        recyclerView = view.findViewById(R.id.rv_guestcart);
+        btnProceed = view.findViewById(R.id.btn_guestcart_proceed);
+        tvTotalPrice = view.findViewById(R.id.tv_guestcart_totalprice);
+        tvEmplty = view.findViewById(R.id.tv_guestcart_ifemplty);
+
+
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+
 //        btnProceed.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View view) {
@@ -69,123 +69,121 @@ public class CartGuestFragment extends Fragment {
 //        });
 
 //checking if cart is empty or not
-//        DatabaseReference checkRef = FirebaseDatabase.getInstance().getReference().child("Cart List");
-//        checkRef.addListenerForSingleValueEvent(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                if (snapshot.hasChild("Guest Cart")) {
-//
-//
-//                    btnProceed.setOnClickListener(new View.OnClickListener() {
-//                        @Override
-//                        public void onClick(View view) {
-//                            Intent intent = new Intent(getContext(), ConfirmOrderAcitvity.class);
-//                            intent.putExtra("totalAmount", String.valueOf(overAllTotalPrice));
-//                            startActivity(intent);
-//                        }
-//                    });
-//
-//                } else {
-//                    btnProceed.setVisibility(View.GONE);
-//                    tvEmplty.setVisibility(View.VISIBLE);
-//
-//                    //Toast.makeText(getContext(), "Cart is empty, Please Add some items to cart!", Toast.LENGTH_LONG).show();
-//                }
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//
-//            }
-//        });
+        DatabaseReference checkRef = FirebaseDatabase.getInstance().getReference().child("Cart List").child("Guest Cart");
+        checkRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.hasChild(Singleton.obj.guestid)) {
+
+
+                    btnProceed.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            Intent intent = new Intent(getContext(), ConfirmGuestOrderAcitvity.class);
+                            intent.putExtra("totalAmount", String.valueOf(overAllTotalPrice));
+                            startActivity(intent);
+                        }
+                    });
+
+                } else {
+                    btnProceed.setVisibility(View.GONE);
+                    tvEmplty.setVisibility(View.VISIBLE);
+
+                    //Toast.makeText(getContext(), "Cart is empty, Please Add some items to cart!", Toast.LENGTH_LONG).show();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
 
         return view;
     }
 
 
-//    @Override
-//    public void onStart() {
-//        super.onStart();
-//
-//        final DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("Cart List");
-//
-//        FirebaseRecyclerOptions<Cart> options = new FirebaseRecyclerOptions.Builder<Cart>()
-//                .setQuery(databaseReference.child("Guest Cart").child(Singleton.obj.guestid).child("Products"), Cart.class)
-//                .build();
-//
-//
-//        FirebaseRecyclerAdapter<Cart, CartViewHolder> adapter = new FirebaseRecyclerAdapter<Cart, CartViewHolder>(options) {
-//            @Override
-//            protected void onBindViewHolder(@NonNull CartViewHolder holder, int position, @NonNull final Cart model) {
-//
-//                holder.tvPname.setText(model.getPname());
-//                holder.tvprice.setText("Price : " + model.getPrice());
-//                holder.tvquantity.setText("Qty : " + model.getQuantity());
-//
-//                int singleItemTotalPrice = ((Integer.valueOf(model.getPrice()))) * Integer.valueOf(model.getQuantity());
-//                overAllTotalPrice = overAllTotalPrice + singleItemTotalPrice;
-//                tvTotalPrice.setText("Total: Rs. " + overAllTotalPrice);
-//                holder.itemView.setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View view) {
-//                        CharSequence options[] = new CharSequence[]
-//                                {
-//                                        "Edit",
-//                                        "Remove"
-//                                };
-//                        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-//                        builder.setTitle("Cart options:");
-//
-//                        builder.setItems(options, new DialogInterface.OnClickListener() {
-//                            @Override
-//                            public void onClick(DialogInterface dialogInterface, int i) {
-//                                if (i == 0) {
-//                                    Intent intent = new Intent(getContext(), ProductsDetailGuestActivity.class);
-//                                    intent.putExtra("pid", model.getPid());
-//                                    startActivity(intent);
-//                                }
-//                                if (i == 1) {
-//                                    databaseReference.child("Guest Cart")
-//                                            .child("Products")
-//                                            .child(model.getPid())
-//                                            .removeValue()
-//                                            .addOnCompleteListener(new OnCompleteListener<Void>() {
-//                                                @Override
-//                                                public void onComplete(@NonNull Task<Void> task) {
-//
-//                                                    if (task.isSuccessful()) {
-//                                                        Toast.makeText(getActivity(), "Item removed successfully!", Toast.LENGTH_SHORT).show();
-//                                                        Intent intent = new Intent(getContext(), HomeGuestAcitvity.class);
-//                                                        startActivity(intent);
-//                                                    }
-//                                                }
-//                                            });
-//                                }
-//                            }
-//                        });
-//                        builder.show();
-//                    }
-//
-//
-//                });
-//            }
-//
-//            @NonNull
-//            @Override
-//            public CartViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-//                View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.cart_list_items, parent, false);
-//
-//                return new CartViewHolder(view);
-//            }
-//        };
-//
-//
-//        recyclerView.setAdapter(adapter);
-//        adapter.startListening();
-//
-//
-//    }
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        final DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("Cart List");
+
+        FirebaseRecyclerOptions<Cart> options = new FirebaseRecyclerOptions.Builder<Cart>()
+                .setQuery(databaseReference.child("Guest Cart").child(Singleton.obj.guestid).child("Products"), Cart.class)
+                .build();
+
+
+        FirebaseRecyclerAdapter<Cart, CartViewHolder> adapter = new FirebaseRecyclerAdapter<Cart, CartViewHolder>(options) {
+            @Override
+            protected void onBindViewHolder(@NonNull CartViewHolder holder, int position, @NonNull final Cart model) {
+
+                holder.tvPname.setText(model.getPname());
+                holder.tvprice.setText("Price : " + model.getPrice());
+                holder.tvquantity.setText("Qty : " + model.getQuantity());
+
+                int singleItemTotalPrice = ((Integer.valueOf(model.getPrice()))) * Integer.valueOf(model.getQuantity());
+                overAllTotalPrice = overAllTotalPrice + singleItemTotalPrice;
+                tvTotalPrice.setText("Total: Rs. " + overAllTotalPrice);
+                holder.itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        CharSequence options[] = new CharSequence[]
+                                {
+                                        "Edit",
+                                        "Remove"
+                                };
+                        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                        builder.setTitle("Cart options:");
+
+                        builder.setItems(options, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                if (i == 0) {
+                                    Intent intent = new Intent(getContext(), ProductsDetailGuestActivity.class);
+                                    intent.putExtra("pid", model.getPid());
+                                    startActivity(intent);
+                                }
+                                if (i == 1) {
+                                    databaseReference.child("Guest Cart")
+                                            .child("Products")
+                                            .child(model.getPid())
+                                            .removeValue()
+                                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                @Override
+                                                public void onComplete(@NonNull Task<Void> task) {
+
+                                                    if (task.isSuccessful()) {
+                                                        Toast.makeText(getActivity(), "Item removed successfully!", Toast.LENGTH_SHORT).show();
+                                                        Intent intent = new Intent(getContext(), HomeGuestAcitvity.class);
+                                                        startActivity(intent);
+                                                    }
+                                                }
+                                            });
+                                }
+                            }
+                        });
+                        builder.show();
+                    }
+
+
+                });
+            }
+
+            @NonNull
+            @Override
+            public CartViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+                View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.cart_list_items, parent, false);
+
+                return new CartViewHolder(view);
+            }
+        };
+
+
+        recyclerView.setAdapter(adapter);
+        adapter.startListening();
+
+
+    }
 }
-
-
