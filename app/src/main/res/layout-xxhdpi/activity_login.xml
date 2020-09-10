@@ -16,9 +16,9 @@
         android:id="@+id/et_login_number"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/hlogo"
+
         android:layout_marginLeft="15dp"
-        android:layout_marginTop="350dp"
+        android:layout_marginTop="300dp"
         android:layout_marginRight="15dp"
         android:hint="Phone Number"
         android:padding="20dp"
@@ -60,7 +60,7 @@
             android:id="@+id/tv_login_forgetpassword"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="105dp"
+            android:layout_marginLeft="80dp"
             android:text="Forget Password?"
             android:textSize="17sp" />
 

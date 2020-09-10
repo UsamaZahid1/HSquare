@@ -20,7 +20,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".SetNewPassword"></activity>
+        <activity android:name=".ForgotPasswordSucessMessage"></activity>
+        <activity android:name=".SetNewPassword" />
         <activity android:name=".OtpActivity" />
         <activity android:name=".HomeGuestAcitvity" />
         <activity android:name=".ForgetPasswordActivity" />

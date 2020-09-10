@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -46,12 +47,12 @@ public class ForgetPasswordActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if(snapshot.child("Users").child(number).exists()){
 
-                    Intent intent=new Intent(ForgetPasswordActivity.this,OtpActivity.class);
+                    Intent intent=new Intent(ForgetPasswordActivity.this,SetNewPassword.class);
                     intent.putExtra("phone",number);
                     startActivity(intent);
 
-
-
+                }else{
+                    Toast.makeText(ForgetPasswordActivity.this, "This number don't exist!", Toast.LENGTH_SHORT).show();
                 }
             }
 

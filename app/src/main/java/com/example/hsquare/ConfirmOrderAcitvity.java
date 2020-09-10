@@ -37,7 +37,7 @@ public class ConfirmOrderAcitvity extends AppCompatActivity {
 
         etName = findViewById(R.id.et_confirm_name);
         etAddress = findViewById(R.id.et_confirm_address);
-        etNumber = findViewById(R.id.et_confirm_name);
+        etNumber = findViewById(R.id.et_confirm_number);
         etCityName = findViewById(R.id.et_confirm_cityname);
         btnConfirm = findViewById(R.id.btn_confirm_confirm);
 
@@ -79,11 +79,12 @@ public class ConfirmOrderAcitvity extends AppCompatActivity {
         SimpleDateFormat currentTime = new SimpleDateFormat("HH:mm:ss a");
         saveCurrentTime = currentTime.format(callForDate.getTime());
 
+
         String orderId= UUID.randomUUID().toString();
 
 //orderId because user can put multiple order
         DatabaseReference orderRef = FirebaseDatabase.getInstance().getReference().child("Orders")
-                .child(Prevalent.currentOnlineUser.getPhone()).child(orderId);
+                .child(Prevalent.currentOnlineUser.getPhone());
 
         HashMap<String, Object> ordersMap = new HashMap<>();
         ordersMap.put("TotalAmount", totalAmount);

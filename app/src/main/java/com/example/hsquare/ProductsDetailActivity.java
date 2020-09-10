@@ -35,7 +35,7 @@ public class ProductsDetailActivity extends AppCompatActivity {
     private ImageView ivPimg;
     private ElegantNumberButton numberButton;
     private Button btnAddToCart;
-    private String productId;
+    private String productId, state = "normal";
 
 
     @Override
@@ -56,11 +56,23 @@ public class ProductsDetailActivity extends AppCompatActivity {
         btnAddToCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                addingToCartList();
+
+
+                if(state.equals("Order Placed")||state.equals("Orders Sipped")){
+                    Toast.makeText(ProductsDetailActivity.this, "You can place more products, once your order is shipped or confirmed!", Toast.LENGTH_LONG).show();
+                }else{
+                    addingToCartList();
+                }
             }
         });
 
         getProductDetails(productId);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        checkOrdersState();
     }
 
     private void addingToCartList() {
@@ -101,7 +113,7 @@ public class ProductsDetailActivity extends AppCompatActivity {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
                                     Toast.makeText(ProductsDetailActivity.this, "Added to Cart List...", Toast.LENGTH_SHORT).show();
-                                    Intent intent=new Intent(ProductsDetailActivity.this,HomeActivity.class);
+                                    Intent intent = new Intent(ProductsDetailActivity.this, HomeActivity.class);
                                     startActivity(intent);
 
                                 }
@@ -123,6 +135,33 @@ public class ProductsDetailActivity extends AppCompatActivity {
                     tvPdesc.setText(products.getDescription());
                     tvPprice.setText(products.getPrice());
                     Picasso.get().load(products.getImage()).into(ivPimg);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+    private void checkOrdersState() {
+        DatabaseReference reference;
+        reference = FirebaseDatabase.getInstance().getReference().child("Orders").child(Prevalent.currentOnlineUser.getPhone());
+
+        reference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    String shippingState = snapshot.child("state").getValue().toString();
+                    String UserName = snapshot.child("name").getValue().toString();
+
+                    if (shippingState.equals("shipped")) {
+
+                        state = "Order Shipped";
+                    } else if (shippingState.equals("not shipped")) {
+                        state = "Order Placed";
+                    }
                 }
             }
 

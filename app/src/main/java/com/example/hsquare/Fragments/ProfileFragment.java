@@ -183,8 +183,6 @@ public class ProfileFragment extends Fragment {
                     if (!task.isSuccessful()) {
                         throw task.getException();
                     }
-
-
                     return filereference.getDownloadUrl();
                 }
             })

@@ -4,78 +4,90 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/sewing"
+    android:background="@color/white"
     android:orientation="vertical"
     tools:context=".MainActivity">
 
     <ImageView
         android:layout_width="match_parent"
-        android:layout_height="450dp"
-        android:src="@drawable/logo" />
+        android:layout_height="350dp"
+        android:src="@drawable/applogoblack" />
 
     <Button
         android:id="@+id/btn_main_join"
         android:layout_width="match_parent"
-        android:layout_height="70dp"
+        android:layout_height="wrap_content"
         android:layout_marginLeft="15dp"
-        android:drawableLeft="@drawable/register"
-        android:padding="20dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="150dp"
         android:layout_marginRight="15dp"
-        android:gravity="center"
-        android:textColor="@color/white"
         android:background="#363637"
-        android:textSize="18sp"
+        android:drawableLeft="@drawable/registericon"
+        android:gravity="center"
+        android:padding="20dp"
+        android:text="Join Now"
         android:textAllCaps="false"
-        android:text="Join Now" />
+        android:textColor="@color/white"
+        android:textSize="20sp" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp">
+
+        <View
+            android:layout_width="100dp"
+            android:layout_height="1.5dp"
+            android:layout_marginTop="15dp"
+            android:background="@color/grey" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:text="or"
+            android:textSize="22sp" />
+
+        <View
+            android:layout_width="100dp"
+            android:layout_height="1.5dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="20dp"
+            android:background="@color/grey" />
+    </LinearLayout>
 
     <Button
         android:id="@+id/btn_main_quickshop"
         android:layout_width="match_parent"
-        android:layout_height="70dp"
+        android:layout_height="wrap_content"
         android:layout_marginLeft="15dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="20dp"
         android:layout_marginRight="15dp"
-        android:gravity="center"
-        android:textSize="18sp"
-        android:padding="20dp"
-        android:textAllCaps="false"
-        android:drawableLeft="@drawable/time"
-        android:textColor="@color/white"
         android:background="#5AD8EE"
-        app:iconTint="@null"
-        android:text="Quick Shop" />
-
-    <Button
-        android:id="@+id/bt_main_googlesign"
-        android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:layout_marginLeft="15dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginRight="15dp"
+        android:drawableLeft="@drawable/time"
         android:gravity="center"
-        android:textAllCaps="false"
-        android:drawableLeft="@drawable/google"
         android:padding="20dp"
-        android:background="#699BF2"
-        android:textSize="18sp"
-        app:iconTint="@null"
-        android:text="Google Sign In"
-        />
+        android:text="Quick Shop"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        app:iconTint="@null" />
+
 
     <Button
         android:id="@+id/btn_main_already"
         android:layout_width="match_parent"
-        android:layout_height="70dp"
+        android:layout_height="wrap_content"
         android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
         android:layout_marginTop="10dp"
-        android:textSize="18sp"
-        android:gravity="center"
-        android:padding="20dp"
-        android:textColor="@color/white"
-        android:textAllCaps="false"
+        android:layout_marginRight="15dp"
         android:background="#363637"
         android:drawableLeft="@drawable/login"
-        android:text="Already a Member?" />
+        android:gravity="center"
+        android:padding="20dp"
+        android:text="Already a Member?"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="20sp" />
+
 </LinearLayout>

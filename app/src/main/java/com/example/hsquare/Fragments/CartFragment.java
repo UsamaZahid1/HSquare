@@ -38,7 +38,7 @@ public class CartFragment extends Fragment {
 
     private RecyclerView recyclerView;
     private Button btnProceed;
-    private TextView tvTotalPrice, tvEmplty;
+    private TextView tvTotalPrice, tvMsg,tvIsEmpty;
 
     private int overAllTotalPrice = 0;
 
@@ -51,12 +51,22 @@ public class CartFragment extends Fragment {
         recyclerView = view.findViewById(R.id.rv_cart);
         btnProceed = view.findViewById(R.id.btn_cart_proceed);
         tvTotalPrice = view.findViewById(R.id.tv_cart_totalprice);
-        tvEmplty = view.findViewById(R.id.tv_cart_ifemplty);
+        tvMsg = view.findViewById(R.id.tv_cart_msg);
+        tvIsEmpty = view.findViewById(R.id.tv_cart_isempty);
 
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-//checking if cart is empty or not
+//        btnProceed.setOnClickListener(new View.OnClickListener() {
+//                        @Override
+//                        public void onClick(View view) {
+//                            Intent intent = new Intent(getContext(), ConfirmOrderAcitvity.class);
+//                            intent.putExtra("totalAmount", String.valueOf(overAllTotalPrice));
+//                            startActivity(intent);
+//                        }
+//                    });
+
+////checking if cart is empty or not
         DatabaseReference checkRef = FirebaseDatabase.getInstance().getReference().child("Cart List").child("Users Cart");
         checkRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -75,7 +85,7 @@ public class CartFragment extends Fragment {
 
                 } else {
                     btnProceed.setVisibility(View.GONE);
-                    tvEmplty.setVisibility(View.VISIBLE);
+                    tvIsEmpty.setVisibility(View.VISIBLE);
 
                     //Toast.makeText(getContext(), "Cart is empty, Please Add some items to cart!", Toast.LENGTH_LONG).show();
                 }
@@ -91,10 +101,53 @@ public class CartFragment extends Fragment {
         return view;
     }
 
+    private void checkOrdersState(){
+        DatabaseReference reference;
+        reference=FirebaseDatabase.getInstance().getReference().child("Orders").child(Prevalent.currentOnlineUser.getPhone());
+
+        reference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.exists()){
+                    String shippingState=snapshot.child("state").getValue().toString();
+                    String UserName=snapshot.child("name").getValue().toString();
+
+                    if(shippingState.equals("shipped")){
+
+                        tvTotalPrice.setText("Dear "+UserName+"\n order is shipped successfully");
+                        recyclerView.setVisibility(View.GONE);
+                        tvMsg.setVisibility(View.VISIBLE);
+                        tvMsg.setText("Congratulation your final order has been shipped, soon you will get your order at your door step!");
+
+                        btnProceed.setVisibility(View.GONE);
+                        Toast.makeText(getContext(), "You can order more products once your received your first order!", Toast.LENGTH_SHORT).show();
+                    }else if(shippingState.equals("not shipped")){
+
+                        tvTotalPrice.setText("Shipping status : Not Shipped");
+                        recyclerView.setVisibility(View.GONE);
+                        tvMsg.setVisibility(View.VISIBLE);
+                        tvIsEmpty.setVisibility(View.GONE);
+
+                        btnProceed.setVisibility(View.GONE);
+                        Toast.makeText(getContext(), "You can order more products once your received your first order!", Toast.LENGTH_SHORT).show();
+
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
 
     @Override
     public void onStart() {
         super.onStart();
+
+        checkOrdersState();
 
         final DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("Cart List");
 

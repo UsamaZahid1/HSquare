@@ -22,17 +22,31 @@
         android:layout_below="@id/tv_cart_totalprice" />
 
     <TextView
-        android:id="@+id/tv_cart_ifemplty"
+        android:id="@+id/tv_cart_msg"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Cart is empty!"
+        android:padding="5dp"
+        android:gravity="center"
+        android:text="Congratulation your final order has been placed, It will be verified soon!"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:textColor="@color/grey"
         android:textSize="20dp"
         android:visibility="invisible"
         />
-
+    <TextView
+        android:id="@+id/tv_cart_isempty"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:gravity="center"
+        android:text="Cart is Empty!"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:textColor="@color/grey"
+        android:textSize="20dp"
+        android:visibility="invisible"
+        />
     <Button
         android:id="@+id/btn_cart_proceed"
         android:layout_width="match_parent"

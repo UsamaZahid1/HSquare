@@ -5,12 +5,15 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
+
 import com.rey.material.widget.CheckBox;
+
 import android.widget.Button;
 
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.hsquare.Model.Users;
@@ -24,6 +27,7 @@ import com.google.firebase.database.ValueEventListener;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+
 import io.paperdb.Paper;
 
 public class LoginAcitvity extends AppCompatActivity {
@@ -32,6 +36,7 @@ public class LoginAcitvity extends AppCompatActivity {
     private ProgressDialog progressDialog;
     private String parentDbName = "Users";
     private CheckBox cbRemember;
+    TextView tvForgetPassword;
 
     ImageView ivBack;
 
@@ -45,12 +50,21 @@ public class LoginAcitvity extends AppCompatActivity {
         btnLogin = findViewById(R.id.btn_login_login);
         cbRemember = findViewById(R.id.cb_login_rememberme);
         progressDialog = new ProgressDialog(this);
-        ivBack=findViewById(R.id.iv_login_back);
+        ivBack = findViewById(R.id.iv_login_back);
+        tvForgetPassword = findViewById(R.id.tv_login_forgetpassword);
+
+        tvForgetPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(LoginAcitvity.this, ForgetPasswordActivity.class);
+                startActivity(intent);
+            }
+        });
 
         ivBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent in=new Intent(LoginAcitvity.this,MainActivity.class);
+                Intent in = new Intent(LoginAcitvity.this, MainActivity.class);
                 startActivity(in);
             }
         });
@@ -89,9 +103,9 @@ public class LoginAcitvity extends AppCompatActivity {
 
     private void allowAccessToAccount(final String number, final String password) {
 
-        if(cbRemember.isChecked()){
-            Paper.book().write(Prevalent.userPhoneKey,number);
-            Paper.book().write(Prevalent.userPasswordKey,password);
+        if (cbRemember.isChecked()) {
+            Paper.book().write(Prevalent.userPhoneKey, number);
+            Paper.book().write(Prevalent.userPasswordKey, password);
         }
 
         final DatabaseReference databaseReference;

@@ -9,7 +9,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class SplashActivity extends AppCompatActivity {
-    int SPLASH_TIME = 5000;
+    int SPLASH_TIME = 4000;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
