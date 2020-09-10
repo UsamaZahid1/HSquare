@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -27,6 +29,7 @@ import io.paperdb.Paper;
 public class MainActivity extends AppCompatActivity {
     Button btn_join, btn_already, btnQuickShop, btnGoogle;
     ProgressDialog progressDialog;
+    Animation animFadein;
 
 
     @Override
@@ -37,6 +40,8 @@ public class MainActivity extends AppCompatActivity {
         btn_already = findViewById(R.id.btn_main_already);
         btnQuickShop = findViewById(R.id.btn_main_quickshop);
 //        btnGoogle = findViewById(R.id.btn_main_googlesign);
+
+
         progressDialog = new ProgressDialog(this);
 
         Paper.init(this);
@@ -67,6 +72,7 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent = new Intent(MainActivity.this, HomeGuestAcitvity.class);
 
                 startActivity(intent);
+                overridePendingTransition(R.anim.push_down_in, R.anim.push_down_out);
             }
         });
 
@@ -79,6 +85,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, LoginAcitvity.class);
                 startActivity(intent);
+                overridePendingTransition(R.anim.right_in, R.anim.left_out);
 
             }
         });
@@ -87,6 +94,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent i = new Intent(MainActivity.this, RegisterActivity.class);
                 startActivity(i);
+                overridePendingTransition(R.anim.right_in, R.anim.left_out);
             }
         });
 

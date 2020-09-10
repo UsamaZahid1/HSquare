@@ -17,7 +17,7 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="250dp">
+        android:layout_marginTop="220dp">
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
@@ -41,7 +41,7 @@
                     android:layout_marginTop="20dp"
                     android:layout_marginRight="15dp"
                     android:hint="Name"
-                    android:padding="18dp"
+                    android:padding="20dp"
                     android:textSize="20sp" />
 
                 <EditText
@@ -56,7 +56,7 @@
                     android:inputType="phone"
                     android:padding="20dp"
                     android:textColor="@color/black"
-                    android:textSize="18sp" />
+                    android:textSize="20sp" />
 
                 <EditText
                     android:id="@+id/et_register_password"
@@ -70,7 +70,7 @@
                     android:inputType="textPassword"
                     android:padding="20dp"
                     android:textColor="@color/black"
-                    android:textSize="18sp" />
+                    android:textSize="20sp" />
 
 
                 <Button
@@ -82,10 +82,10 @@
                     android:layout_marginLeft="15dp"
                     android:layout_marginTop="25dp"
                     android:layout_marginRight="15dp"
-                    android:layout_marginBottom="15dp"
+                    android:layout_marginBottom="25dp"
                     android:background="@drawable/buttons"
                     android:gravity="center"
-                    android:padding="18dp"
+                    android:padding="20dp"
                     android:text="Register"
                     android:textAllCaps="false"
                     android:textColor="@color/white"
@@ -100,7 +100,7 @@
         android:layout_width="100dp"
         android:layout_height="120dp"
         android:src="@drawable/whiteback"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="40dp"
         android:scaleType="fitStart"/>
 
 </LinearLayout>

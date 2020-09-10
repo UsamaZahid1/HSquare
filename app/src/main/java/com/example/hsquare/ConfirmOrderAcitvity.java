@@ -6,6 +6,8 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.example.hsquare.Prevalent.Prevalent;
@@ -27,6 +29,8 @@ public class ConfirmOrderAcitvity extends AppCompatActivity {
     EditText etName, etAddress, etNumber, etCityName;
     Button btnConfirm;
     private String totalAmount="";
+    RadioGroup radioGroup;
+    RadioButton radioButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +44,7 @@ public class ConfirmOrderAcitvity extends AppCompatActivity {
         etNumber = findViewById(R.id.et_confirm_number);
         etCityName = findViewById(R.id.et_confirm_cityname);
         btnConfirm = findViewById(R.id.btn_confirm_confirm);
+        radioGroup=findViewById(R.id.radioGroup);
 
         btnConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -70,6 +75,10 @@ public class ConfirmOrderAcitvity extends AppCompatActivity {
 
     private void cofirmOrder() {
 
+        int radioId=radioGroup.getCheckedRadioButtonId();
+        radioButton=findViewById(radioId);
+
+
         final String saveCurrentDate, saveCurrentTime;
         Calendar callForDate = Calendar.getInstance();
 
@@ -92,6 +101,7 @@ public class ConfirmOrderAcitvity extends AppCompatActivity {
         ordersMap.put("phoneNumber", etNumber.getText().toString());
         ordersMap.put("address", etAddress.getText().toString());
         ordersMap.put("cityName", etCityName.getText().toString());
+        ordersMap.put("Measurement", radioButton.getText());
         ordersMap.put("date", saveCurrentDate);
         ordersMap.put("time", saveCurrentTime);
         ordersMap.put("state", "not shipped");

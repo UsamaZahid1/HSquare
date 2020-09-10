@@ -16,6 +16,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.hsquare.HomeActivity;
 import com.example.hsquare.Prevalent.Prevalent;
 import com.example.hsquare.R;
 import com.google.android.gms.tasks.Continuation;
@@ -118,7 +119,7 @@ public class ProfileFragment extends Fragment {
             profileImageView.setImageURI(imageUri);
         } else {
             Toast.makeText(getContext(), "Error, Try Again", Toast.LENGTH_LONG).show();
-            startActivity(new Intent(getContext(), ProfileFragment.class));
+            startActivity(new Intent(getContext(), HomeActivity.class));
         }
     }
 

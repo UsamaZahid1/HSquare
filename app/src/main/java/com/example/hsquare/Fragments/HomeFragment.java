@@ -110,6 +110,7 @@ public class HomeFragment extends Fragment {
                         Intent intent = new Intent(getContext(), ProductsDetailActivity.class);
                         intent.putExtra("pid", model.getPid());
                         startActivity(intent);
+                        getActivity().overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
                     }
                 });
             }

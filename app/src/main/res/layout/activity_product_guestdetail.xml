@@ -33,7 +33,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/tv_products_guestdetail_pname"
-        android:layout_marginStart="23dp"
+        android:layout_marginStart="20dp"
         android:textColor="@color/white"
         android:layout_marginTop="10dp"
         android:text="Product Description"
@@ -64,7 +64,7 @@
         app:finalNumber="10"
         android:elevation="10dp"
         app:backGroundColor="#1A1A1A"
-        app:textSize="14dp"></com.cepheuen.elegantnumberbutton.view.ElegantNumberButton>
+        app:textSize="8dp"></com.cepheuen.elegantnumberbutton.view.ElegantNumberButton>
 
     <Button
         android:id="@+id/btn_products_guestdetails_addtocart"

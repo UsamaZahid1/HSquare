@@ -10,6 +10,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.cepheuen.elegantnumberbutton.view.ElegantNumberButton;
+import com.example.hsquare.Fragments.HomeFragment;
 import com.example.hsquare.Model.Products;
 import com.example.hsquare.Prevalent.Prevalent;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -170,5 +171,13 @@ public class ProductsDetailActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent in = new Intent(ProductsDetailActivity.this, HomeActivity.class);
+        startActivity(in);
+        overridePendingTransition(R.anim.right_out, R.anim.left_in);
     }
 }

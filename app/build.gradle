@@ -42,6 +42,7 @@ dependencies {
     implementation 'com.cepheuen.elegant-number-button:lib:1.0.2'
     implementation 'com.chaos.view:pinview:1.4.3'
     implementation 'com.google.firebase:firebase-auth:19.3.2'
+    implementation 'gun0912.ted:tedpermission:2.2.3'
 
 }
 apply plugin: 'com.google.gms.google-services'

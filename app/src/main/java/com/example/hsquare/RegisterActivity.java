@@ -50,6 +50,7 @@ public class RegisterActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent in=new Intent(RegisterActivity.this,MainActivity.class);
                 startActivity(in);
+                overridePendingTransition(R.anim.left_in, R.anim.right_out);
             }
         });
 
@@ -144,5 +145,13 @@ public class RegisterActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent in=new Intent(RegisterActivity.this,MainActivity.class);
+        startActivity(in);
+        overridePendingTransition(R.anim.left_in, R.anim.right_out);
     }
 }

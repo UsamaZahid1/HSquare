@@ -88,7 +88,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/blackback"
-        android:layout_marginTop="55dp"
+        android:layout_marginTop="25dp"
         android:layout_below="@id/btn_login_login"
         android:scaleType="fitStart"/>
 

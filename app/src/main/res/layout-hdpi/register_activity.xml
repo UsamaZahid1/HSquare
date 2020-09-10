@@ -17,7 +17,7 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="170dp">
+        android:layout_marginTop="160dp">
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
@@ -41,7 +41,7 @@
                     android:layout_marginTop="5dp"
                     android:layout_marginRight="15dp"
                     android:hint="Name"
-                    android:padding="18dp"
+                    android:padding="10dp"
                     android:textSize="14sp" />
 
                 <EditText
@@ -54,7 +54,7 @@
                     android:layout_marginRight="15dp"
                     android:hint="Phone Number"
                     android:inputType="phone"
-                    android:padding="18dp"
+                    android:padding="10dp"
                     android:textColor="@color/black"
                     android:textSize="14sp" />
 
@@ -68,7 +68,7 @@
                     android:layout_marginRight="15dp"
                     android:hint="Password"
                     android:inputType="textPassword"
-                    android:padding="18dp"
+                    android:padding="10dp"
                     android:textColor="@color/black"
                     android:textSize="14sp" />
 
@@ -85,7 +85,7 @@
                     android:layout_marginBottom="15dp"
                     android:background="@drawable/buttons"
                     android:gravity="center"
-                    android:padding="18dp"
+                    android:padding="10dp"
                     android:text="Register"
                     android:textAllCaps="false"
                     android:textColor="@color/white"
@@ -95,12 +95,13 @@
         </androidx.cardview.widget.CardView>
 
     </ScrollView>
+
     <ImageView
         android:id="@+id/iv_register_back"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/whiteback"
+        android:layout_height="70dp"
         android:layout_marginTop="0dp"
-        android:scaleType="fitStart"/>
+        android:scaleType="fitStart"
+        android:src="@drawable/whiteback" />
 
 </LinearLayout>

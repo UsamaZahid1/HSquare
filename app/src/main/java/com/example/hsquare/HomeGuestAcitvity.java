@@ -1,7 +1,9 @@
 package com.example.hsquare;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.example.hsquare.Fragments.CartGuestFragment;
 import com.example.hsquare.Fragments.HomeGuestFragment;
@@ -19,7 +21,6 @@ public class HomeGuestAcitvity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_guest_acitvity);
-
 
 
         navigationView = findViewById(R.id.bottom_nav_view_guest);
@@ -52,5 +53,27 @@ public class HomeGuestAcitvity extends AppCompatActivity {
             }
         });
 
+    }
+
+    boolean doubleBackToExitPressedOnce = false;
+
+    @Override
+    public void onBackPressed() {
+        if (doubleBackToExitPressedOnce) {
+            super.onBackPressed();
+            finishAffinity();
+            return;
+        }
+
+        this.doubleBackToExitPressedOnce = true;
+        Toast.makeText(this, "Please click BACK again to exit", Toast.LENGTH_SHORT).show();
+
+        new Handler().postDelayed(new Runnable() {
+
+            @Override
+            public void run() {
+                doubleBackToExitPressedOnce = false;
+            }
+        }, 2000);
     }
 }

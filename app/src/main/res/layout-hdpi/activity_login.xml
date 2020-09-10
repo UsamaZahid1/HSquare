@@ -17,11 +17,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="15dp"
-        android:layout_marginTop="200dp"
+        android:layout_marginTop="190dp"
         android:layout_marginRight="15dp"
         android:hint="Phone Number"
         android:padding="20dp"
-        android:textSize="16sp" />
+        android:textSize="14sp" />
 
     <EditText
         android:id="@+id/et_login_password"
@@ -29,12 +29,12 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/et_login_number"
         android:layout_marginLeft="15dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="5dp"
         android:layout_marginRight="15dp"
         android:hint="Password"
         android:inputType="textPassword"
         android:padding="20dp"
-        android:textSize="16sp" />
+        android:textSize="14sp" />
 
     <LinearLayout
         android:id="@+id/linear_layout"
@@ -53,15 +53,15 @@
             android:gravity="center_vertical"
             android:text="Remember me"
             app:cbd_strokeColor="@color/colorPrimaryDark"
-            android:textSize="14sp" />
+            android:textSize="12sp" />
 
         <TextView
             android:id="@+id/tv_login_forgetpassword"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="60dp"
+            android:layout_marginLeft="80dp"
             android:text="Forget Password?"
-            android:textSize="14sp" />
+            android:textSize="12sp" />
 
     </LinearLayout>
 
@@ -73,8 +73,8 @@
         android:layout_below="@id/linear_layout"
         android:layout_centerHorizontal="true"
         android:layout_marginLeft="15dp"
-        android:layout_marginTop="15dp"
-        android:padding="20dp"
+        android:layout_marginTop="5dp"
+        android:padding="10dp"
         android:layout_marginRight="15dp"
         android:background="@drawable/buttons"
         android:text="Login"
