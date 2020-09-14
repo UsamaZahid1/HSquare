@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import com.rey.material.widget.CheckBox;
@@ -118,10 +119,11 @@ public class LoginAcitvity extends AppCompatActivity {
 
                 if (snapshot.child(parentDbName).child(number).exists()) {
                     Users usersData = snapshot.child(parentDbName).child(number).getValue(Users.class);
+                    Log.d("usersss", String.valueOf(snapshot.child(parentDbName).child(number)));
                     if (usersData.getPhone().equals(number)) {
 
                         if (usersData.getPassword().equals(password)) {
-                            Toast.makeText(LoginAcitvity.this, "Logged in Successfully...", Toast.LENGTH_LONG).show();
+                      //      Toast.makeText(LoginAcitvity.this, "Logged in Successfully...", Toast.LENGTH_LONG).show();
                             progressDialog.dismiss();
 
                             Intent intent = new Intent(LoginAcitvity.this, HomeActivity.class);

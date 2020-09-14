@@ -10,6 +10,7 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        vectorDrawables.useSupportLibrary=true
     }
     buildTypes {
         release {
@@ -41,8 +42,9 @@ dependencies {
     implementation 'com.theartofdev.edmodo:android-image-cropper:2.7.+'
     implementation 'com.cepheuen.elegant-number-button:lib:1.0.2'
     implementation 'com.chaos.view:pinview:1.4.3'
-    implementation 'com.google.firebase:firebase-auth:19.3.2'
+    implementation 'com.google.firebase:firebase-auth:19.4.0'
     implementation 'gun0912.ted:tedpermission:2.2.3'
+    implementation 'com.google.android.gms:play-services-auth:18.1.0'
 
 }
 apply plugin: 'com.google.gms.google-services'

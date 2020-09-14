@@ -45,7 +45,6 @@ public class ProductsDetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_products_detail);
 
         productId = getIntent().getStringExtra("pid");
-        Log.d("mtag", productId);
 
         tvPname = findViewById(R.id.tv_products_detail_pname);
         tvPdesc = findViewById(R.id.tv_products_detail_pdesc);
@@ -59,9 +58,9 @@ public class ProductsDetailActivity extends AppCompatActivity {
             public void onClick(View view) {
 
 
-                if(state.equals("Order Placed")||state.equals("Orders Sipped")){
+                if (state.equals("Order Placed") || state.equals("Orders Sipped")) {
                     Toast.makeText(ProductsDetailActivity.this, "You can place more products, once your order is shipped or confirmed!", Toast.LENGTH_LONG).show();
-                }else{
+                } else {
                     addingToCartList();
                 }
             }
@@ -99,29 +98,54 @@ public class ProductsDetailActivity extends AppCompatActivity {
         cartMap.put("quantity", numberButton.getNumber());
         cartMap.put("discount", "");
 
+        if (Singleton.obj.googleId == null) {
 
-        cartListRefernce.child("Users Cart").child(Prevalent.currentOnlineUser.getPhone()).child("Products")
-                .child(productId)
-                .updateChildren(cartMap)
-                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if (task.isSuccessful()) {
+            cartListRefernce.child("Users Cart").child(Prevalent.currentOnlineUser.getPhone()).child("Products")
+                    .child(productId)
+                    .updateChildren(cartMap)
+                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if (task.isSuccessful()) {
 
-                            cartListRefernce.child("Admin Cart").child(Prevalent.currentOnlineUser.getPhone()).child("Products")
-                                    .child(productId)
-                                    .updateChildren(cartMap).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                @Override
-                                public void onComplete(@NonNull Task<Void> task) {
-                                    Toast.makeText(ProductsDetailActivity.this, "Added to Cart List...", Toast.LENGTH_SHORT).show();
-                                    Intent intent = new Intent(ProductsDetailActivity.this, HomeActivity.class);
-                                    startActivity(intent);
+                                cartListRefernce.child("Admin Cart").child(Prevalent.currentOnlineUser.getPhone()).child("Products")
+                                        .child(productId)
+                                        .updateChildren(cartMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        Toast.makeText(ProductsDetailActivity.this, "Added to Cart List...", Toast.LENGTH_SHORT).show();
+                                        Intent intent = new Intent(ProductsDetailActivity.this, HomeActivity.class);
+                                        startActivity(intent);
 
-                                }
-                            });
+                                    }
+                                });
+                            }
                         }
-                    }
-                });
+                    });
+        } else {
+            cartListRefernce.child("Google Users").child(Singleton.obj.googleId).child("Products")
+                    .child(productId)
+                    .updateChildren(cartMap)
+                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if (task.isSuccessful()) {
+
+                                cartListRefernce.child("Admin Cart").child("Google Users").child(Singleton.obj.googleId).child("Products")
+                                        .child(productId)
+                                        .updateChildren(cartMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        Toast.makeText(ProductsDetailActivity.this, "Added to Cart List...", Toast.LENGTH_SHORT).show();
+                                        Intent intent = new Intent(ProductsDetailActivity.this, HomeActivity.class);
+                                        startActivity(intent);
+
+                                    }
+                                });
+                            }
+                        }
+                    });
+        }
     }
 
     private void getProductDetails(String pid) {
@@ -148,29 +172,55 @@ public class ProductsDetailActivity extends AppCompatActivity {
 
     private void checkOrdersState() {
         DatabaseReference reference;
-        reference = FirebaseDatabase.getInstance().getReference().child("Orders").child(Prevalent.currentOnlineUser.getPhone());
+        if (Singleton.obj.googleId == null) {
+            reference = FirebaseDatabase.getInstance().getReference().child("Orders").child(Prevalent.currentOnlineUser.getPhone());
 
-        reference.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.exists()) {
-                    String shippingState = snapshot.child("state").getValue().toString();
-                    String UserName = snapshot.child("name").getValue().toString();
+            reference.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    if (snapshot.exists()) {
+                        String shippingState = snapshot.child("state").getValue().toString();
+                        String UserName = snapshot.child("name").getValue().toString();
 
-                    if (shippingState.equals("shipped")) {
+                        if (shippingState.equals("shipped")) {
 
-                        state = "Order Shipped";
-                    } else if (shippingState.equals("not shipped")) {
-                        state = "Order Placed";
+                            state = "Order Shipped";
+                        } else if (shippingState.equals("not shipped")) {
+                            state = "Order Placed";
+                        }
                     }
                 }
-            }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
 
-            }
-        });
+                }
+            });
+        } else {
+            reference = FirebaseDatabase.getInstance().getReference().child("Orders").child("Google Users").child(Singleton.obj.googleId);
+
+            reference.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    if (snapshot.exists()) {
+                        String shippingState = snapshot.child("state").getValue().toString();
+                        String UserName = snapshot.child("name").getValue().toString();
+
+                        if (shippingState.equals("shipped")) {
+
+                            state = "Order Shipped";
+                        } else if (shippingState.equals("not shipped")) {
+                            state = "Order Placed";
+                        }
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+        }
     }
 
     @Override

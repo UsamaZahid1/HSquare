@@ -120,7 +120,7 @@
                     android:layout_marginLeft="20dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginRight="20dp"
-                    android:text="You don't know how to take measurement? No Problem, Send a measurement taker at the respective address!"
+                    android:text="Do you want us to take measurement at your door step?"
                     android:textSize="18sp" />
 
                 <RadioGroup

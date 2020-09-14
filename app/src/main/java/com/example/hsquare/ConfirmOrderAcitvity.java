@@ -122,7 +122,7 @@ public class ConfirmOrderAcitvity extends AppCompatActivity {
                                 public void onComplete(@NonNull Task<Void> task) {
                                     if (task.isSuccessful()) {
                                         Toast.makeText(ConfirmOrderAcitvity.this, "Your Order has been placed!", Toast.LENGTH_SHORT).show();
-                                        Intent intent = new Intent(ConfirmOrderAcitvity.this, HomeActivity.class);
+                                        Intent intent = new Intent(ConfirmOrderAcitvity.this, SuccessOrder.class);
                                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                         startActivity(intent);
                                     }

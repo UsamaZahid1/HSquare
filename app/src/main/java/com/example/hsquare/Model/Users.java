@@ -1,14 +1,16 @@
 package com.example.hsquare.Model;
 
 public class Users {
-    private String name, password, phone, image, address;
+    private String name, password, phone, image, address,email;
 
-    public Users(String name, String password, String phone, String image, String address) {
+    public Users(String name, String password, String phone, String image, String address, String email, String id) {
         this.name = name;
         this.password = password;
         this.phone = phone;
         this.image = image;
         this.address = address;
+        this.email = email;
+
     }
 
     public String getName() {
@@ -49,6 +51,14 @@ public class Users {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public Users() {
