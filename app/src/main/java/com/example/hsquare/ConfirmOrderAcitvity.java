@@ -28,7 +28,7 @@ public class ConfirmOrderAcitvity extends AppCompatActivity {
 
     EditText etName, etAddress, etNumber, etCityName;
     Button btnConfirm;
-    private String totalAmount="";
+    private String totalAmount = "";
     RadioGroup radioGroup;
     RadioButton radioButton;
 
@@ -44,7 +44,7 @@ public class ConfirmOrderAcitvity extends AppCompatActivity {
         etNumber = findViewById(R.id.et_confirm_number);
         etCityName = findViewById(R.id.et_confirm_cityname);
         btnConfirm = findViewById(R.id.btn_confirm_confirm);
-        radioGroup=findViewById(R.id.radioGroup);
+        radioGroup = findViewById(R.id.radioGroup);
 
         btnConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -75,8 +75,8 @@ public class ConfirmOrderAcitvity extends AppCompatActivity {
 
     private void cofirmOrder() {
 
-        int radioId=radioGroup.getCheckedRadioButtonId();
-        radioButton=findViewById(radioId);
+        int radioId = radioGroup.getCheckedRadioButtonId();
+        radioButton = findViewById(radioId);
 
 
         final String saveCurrentDate, saveCurrentTime;
@@ -89,47 +89,90 @@ public class ConfirmOrderAcitvity extends AppCompatActivity {
         saveCurrentTime = currentTime.format(callForDate.getTime());
 
 
-        String orderId= UUID.randomUUID().toString();
+        String orderId = UUID.randomUUID().toString();
 
 //orderId because user can put multiple order
-        DatabaseReference orderRef = FirebaseDatabase.getInstance().getReference().child("Orders")
-                .child(Prevalent.currentOnlineUser.getPhone());
+        if (Singleton.obj.googleId == null) {
+            DatabaseReference orderRef = FirebaseDatabase.getInstance().getReference().child("Orders")
+                    .child(Prevalent.currentOnlineUser.getPhone());
 
-        HashMap<String, Object> ordersMap = new HashMap<>();
-        ordersMap.put("TotalAmount", totalAmount);
-        ordersMap.put("name", etName.getText().toString());
-        ordersMap.put("phoneNumber", etNumber.getText().toString());
-        ordersMap.put("address", etAddress.getText().toString());
-        ordersMap.put("cityName", etCityName.getText().toString());
-        ordersMap.put("Measurement", radioButton.getText());
-        ordersMap.put("date", saveCurrentDate);
-        ordersMap.put("time", saveCurrentTime);
-        ordersMap.put("state", "not shipped");
+            HashMap<String, Object> ordersMap = new HashMap<>();
+            ordersMap.put("TotalAmount", totalAmount);
+            ordersMap.put("name", etName.getText().toString());
+            ordersMap.put("phoneNumber", etNumber.getText().toString());
+            ordersMap.put("address", etAddress.getText().toString());
+            ordersMap.put("cityName", etCityName.getText().toString());
+            ordersMap.put("Measurement", radioButton.getText());
+            ordersMap.put("date", saveCurrentDate);
+            ordersMap.put("time", saveCurrentTime);
+            ordersMap.put("state", "not shipped");
 
 
-        orderRef.updateChildren(ordersMap).addOnCompleteListener(new OnCompleteListener<Void>() {
-            @Override
-            public void onComplete(@NonNull Task<Void> task) {
+            orderRef.updateChildren(ordersMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
 
-                if (task.isSuccessful()) {
+                    if (task.isSuccessful()) {
 
-                    FirebaseDatabase.getInstance().getReference().child("Cart List")
-                            .child("Users Cart")
-                            .child(Prevalent.currentOnlineUser.getPhone())
-                            .removeValue()
-                            .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                @Override
-                                public void onComplete(@NonNull Task<Void> task) {
-                                    if (task.isSuccessful()) {
-                                        Toast.makeText(ConfirmOrderAcitvity.this, "Your Order has been placed!", Toast.LENGTH_SHORT).show();
-                                        Intent intent = new Intent(ConfirmOrderAcitvity.this, SuccessOrder.class);
-                                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                                        startActivity(intent);
+                        FirebaseDatabase.getInstance().getReference().child("Cart List")
+                                .child("Users Cart")
+                                .child(Prevalent.currentOnlineUser.getPhone())
+                                .removeValue()
+                                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        if (task.isSuccessful()) {
+                                            Toast.makeText(ConfirmOrderAcitvity.this, "Your Order has been placed!", Toast.LENGTH_SHORT).show();
+                                            Intent intent = new Intent(ConfirmOrderAcitvity.this, SuccessOrder.class);
+                                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                            startActivity(intent);
+                                        }
                                     }
-                                }
-                            });
+                                });
+                    }
                 }
-            }
-        });
+            });
+        } else {
+
+            DatabaseReference orderRef = FirebaseDatabase.getInstance().getReference().child("Orders")
+                    .child(Singleton.obj.googleId);
+
+            HashMap<String, Object> ordersMap = new HashMap<>();
+            ordersMap.put("TotalAmount", totalAmount);
+            ordersMap.put("name", etName.getText().toString());
+            ordersMap.put("phoneNumber", etNumber.getText().toString());
+            ordersMap.put("address", etAddress.getText().toString());
+            ordersMap.put("cityName", etCityName.getText().toString());
+            ordersMap.put("Measurement", radioButton.getText());
+            ordersMap.put("date", saveCurrentDate);
+            ordersMap.put("time", saveCurrentTime);
+            ordersMap.put("state", "not shipped");
+
+
+            orderRef.updateChildren(ordersMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+
+                    if (task.isSuccessful()) {
+
+                        FirebaseDatabase.getInstance().getReference().child("Cart List")
+                                .child("Google Users")
+                                .child(Singleton.obj.googleId)
+                                .removeValue()
+                                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        if (task.isSuccessful()) {
+                                            Toast.makeText(ConfirmOrderAcitvity.this, "Your Order has been placed!", Toast.LENGTH_SHORT).show();
+                                            Intent intent = new Intent(ConfirmOrderAcitvity.this, SuccessOrder.class);
+                                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                            startActivity(intent);
+                                        }
+                                    }
+                                });
+                    }
+                }
+            });
+        }
     }
 }

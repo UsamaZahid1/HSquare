@@ -157,9 +157,14 @@ public class MainActivity extends AppCompatActivity {
         super.onStart();
 
         FirebaseUser user = mAuth.getCurrentUser();
+
         if (user != null) {
+
             Intent intent = new Intent(MainActivity.this, HomeActivity.class);
-//            Prevalent.currentOnlineUser = usersData;
+            GoogleSignInAccount sign = GoogleSignIn.getLastSignedInAccount(MainActivity.this);
+
+            Singleton.obj.googleId = sign.getId();
+
 
             startActivity(intent);
         }
