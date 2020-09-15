@@ -11,6 +11,7 @@ import com.example.hsquare.HomeActivity;
 import com.example.hsquare.MainActivity;
 import com.example.hsquare.R;
 import com.example.hsquare.Singleton;
+import com.facebook.login.LoginManager;
 import com.google.firebase.auth.FirebaseAuth;
 
 import androidx.appcompat.app.AlertDialog;
@@ -31,7 +32,7 @@ public class LogoutFragment extends Fragment {
         };
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         builder.setTitle("Are You Sure You Want to Logout?");
-        if (Singleton.obj.googleId == null) {
+        if (Singleton.obj.googleId == null && Singleton.obj.fbId == null) {
 
 
             builder.setItems(options, new DialogInterface.OnClickListener() {
@@ -49,13 +50,14 @@ public class LogoutFragment extends Fragment {
                 }
             });
             builder.show();
-        } else {
+        } else if(Singleton.obj.googleId != null){
 
             builder.setItems(options, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
                     if (i == 0) {
                         FirebaseAuth.getInstance().signOut();
+                        Singleton.obj.googleId=null;
                         Intent intent = new Intent(getContext(), MainActivity.class);
                         startActivity(intent);
 
@@ -68,6 +70,25 @@ public class LogoutFragment extends Fragment {
             });
             builder.show();
 
+        }else if(Singleton.obj.fbId != null){
+            builder.setItems(options, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    if (i == 0) {
+                        FirebaseAuth.getInstance().signOut();
+                        Singleton.obj.fbId=null;
+                        LoginManager.getInstance().logOut();
+                        Intent intent = new Intent(getContext(), MainActivity.class);
+                        startActivity(intent);
+
+                    }
+                    if (i == 1) {
+                        Intent intent = new Intent(getContext(), HomeActivity.class);
+                        startActivity(intent);
+                    }
+                }
+            });
+            builder.show();
         }
 
         return view;

@@ -58,19 +58,10 @@ public class CartFragment extends Fragment {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-//        btnProceed.setOnClickListener(new View.OnClickListener() {
-//                        @Override
-//                        public void onClick(View view) {
-//                            Intent intent = new Intent(getContext(), ConfirmOrderAcitvity.class);
-//                            intent.putExtra("totalAmount", String.valueOf(overAllTotalPrice));
-//                            startActivity(intent);
-//                        }
-//                    });
-
-////checking if cart is empty or not
+        ////-----------checking if cart is empty or not
         DatabaseReference checkRef = FirebaseDatabase.getInstance().getReference().child("Cart List");
 
-        if (Singleton.obj.googleId == null) {
+        if (Singleton.obj.googleId == null && Singleton.obj.fbId == null) {
             checkRef.child("Users Cart").addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -98,11 +89,39 @@ public class CartFragment extends Fragment {
 
                 }
             });
-        } else {
+        } else if (Singleton.obj.googleId != null) {
             checkRef.child("Google Users").addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     if (snapshot.hasChild(Singleton.obj.googleId)) {
+
+                        btnProceed.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                Intent intent = new Intent(getContext(), ConfirmOrderAcitvity.class);
+                                intent.putExtra("totalAmount", String.valueOf(overAllTotalPrice));
+                                startActivity(intent);
+                            }
+                        });
+
+                    } else {
+                        btnProceed.setVisibility(View.GONE);
+                        tvIsEmpty.setVisibility(View.VISIBLE);
+
+                        //Toast.makeText(getContext(), "Cart is empty, Please Add some items to cart!", Toast.LENGTH_LONG).show();
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+        } else if (Singleton.obj.fbId != null) {
+            checkRef.child("Facebook Users").addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    if (snapshot.hasChild(Singleton.obj.fbId)) {
 
                         btnProceed.setOnClickListener(new View.OnClickListener() {
                             @Override
@@ -136,7 +155,7 @@ public class CartFragment extends Fragment {
         DatabaseReference reference;
         reference = FirebaseDatabase.getInstance().getReference().child("Orders");
 
-        if (Singleton.obj.googleId == null) {
+        if (Singleton.obj.googleId == null && Singleton.obj.fbId == null) {
             reference.child(Prevalent.currentOnlineUser.getPhone()).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -172,8 +191,45 @@ public class CartFragment extends Fragment {
 
                 }
             });
-        } else {
+        } else if (Singleton.obj.googleId != null) {
             reference.child("Google Users").child(Singleton.obj.googleId).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    if (snapshot.exists()) {
+                        String shippingState = snapshot.child("state").getValue().toString();
+                        String UserName = snapshot.child("name").getValue().toString();
+
+                        if (shippingState.equals("shipped")) {
+
+                            tvTotalPrice.setText("Dear " + UserName + "\n order is shipped successfully");
+                            recyclerView.setVisibility(View.GONE);
+                            tvMsg.setVisibility(View.VISIBLE);
+                            tvMsg.setText("Your final order has been shipped, soon you will get your order at your door step!");
+
+                            btnProceed.setVisibility(View.GONE);
+                            Toast.makeText(getContext(), "You can order more products once your received your first order!", Toast.LENGTH_SHORT).show();
+                        } else if (shippingState.equals("not shipped")) {
+
+                            tvTotalPrice.setText("Shipping status : Not Shipped");
+                            recyclerView.setVisibility(View.GONE);
+                            tvMsg.setVisibility(View.VISIBLE);
+                            tvIsEmpty.setVisibility(View.GONE);
+
+                            btnProceed.setVisibility(View.GONE);
+                            Toast.makeText(getContext(), "You can order more products once your received your first order!", Toast.LENGTH_SHORT).show();
+
+                        }
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+        } else if (Singleton.obj.fbId != null) {
+
+            reference.child("Facebook Users").child(Singleton.obj.fbId).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     if (snapshot.exists()) {
@@ -217,7 +273,7 @@ public class CartFragment extends Fragment {
         super.onStart();
 
         checkOrdersState();
-        if (Singleton.obj.googleId == null) {
+        if (Singleton.obj.googleId == null && Singleton.obj.fbId == null) {
             final DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("Cart List");
 
             FirebaseRecyclerOptions<Cart> options = new FirebaseRecyclerOptions.Builder<Cart>()
@@ -295,7 +351,7 @@ public class CartFragment extends Fragment {
             recyclerView.setAdapter(adapter);
             adapter.startListening();
 
-        } else {
+        } else if (Singleton.obj.googleId != null) {
             final DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("Cart List");
 
             FirebaseRecyclerOptions<Cart> options = new FirebaseRecyclerOptions.Builder<Cart>()
@@ -373,6 +429,83 @@ public class CartFragment extends Fragment {
             recyclerView.setAdapter(adapter);
             adapter.startListening();
 
+        } else if (Singleton.obj.fbId != null) {
+            final DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("Cart List");
+
+            FirebaseRecyclerOptions<Cart> options = new FirebaseRecyclerOptions.Builder<Cart>()
+                    .setQuery(databaseReference.child("Facebook Users")
+                            .child(Singleton.obj.fbId).child("Products"), Cart.class)
+                    .build();
+
+
+            FirebaseRecyclerAdapter<Cart, CartViewHolder> adapter = new FirebaseRecyclerAdapter<Cart, CartViewHolder>(options) {
+                @Override
+                protected void onBindViewHolder(@NonNull CartViewHolder holder, int position, @NonNull final Cart model) {
+
+                    holder.tvPname.setText(model.getPname());
+                    holder.tvprice.setText("Price : " + model.getPrice());
+                    holder.tvquantity.setText("Qty : " + model.getQuantity());
+
+                    int singleItemTotalPrice = ((Integer.valueOf(model.getPrice()))) * Integer.valueOf(model.getQuantity());
+                    overAllTotalPrice = overAllTotalPrice + singleItemTotalPrice;
+                    tvTotalPrice.setText("Total: Rs. " + overAllTotalPrice);
+                    holder.itemView.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            CharSequence options[] = new CharSequence[]
+                                    {
+                                            "Edit",
+                                            "Remove"
+                                    };
+                            AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                            builder.setTitle("Cart options:");
+
+                            builder.setItems(options, new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    if (i == 0) {
+                                        Intent intent = new Intent(getContext(), ProductsDetailActivity.class);
+                                        intent.putExtra("pid", model.getPid());
+                                        startActivity(intent);
+                                    }
+                                    if (i == 1) {
+                                        databaseReference.child("Facebook Users")
+                                                .child(Singleton.obj.fbId)
+                                                .child("Products")
+                                                .child(model.getPid())
+                                                .removeValue()
+                                                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                    @Override
+                                                    public void onComplete(@NonNull Task<Void> task) {
+
+                                                        if (task.isSuccessful()) {
+                                                            Toast.makeText(getActivity(), "Item removed successfully!", Toast.LENGTH_SHORT).show();
+                                                            Intent intent = new Intent(getContext(), HomeActivity.class);
+                                                            startActivity(intent);
+                                                        }
+                                                    }
+                                                });
+                                    }
+                                }
+                            });
+                            builder.show();
+                        }
+
+
+                    });
+                }
+
+                @NonNull
+                @Override
+                public CartViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+                    View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.cart_list_items, parent, false);
+
+                    return new CartViewHolder(view);
+                }
+            };
+
+            recyclerView.setAdapter(adapter);
+            adapter.startListening();
         }
     }
 }

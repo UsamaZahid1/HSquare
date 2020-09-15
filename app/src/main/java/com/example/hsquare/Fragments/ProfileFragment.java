@@ -17,9 +17,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.hsquare.HomeActivity;
+import com.example.hsquare.MainActivity;
 import com.example.hsquare.Prevalent.Prevalent;
 import com.example.hsquare.R;
 import com.example.hsquare.Singleton;
+import com.facebook.AccessToken;
+import com.facebook.AccessTokenTracker;
+import com.facebook.GraphRequest;
+import com.facebook.GraphResponse;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.tasks.Continuation;
@@ -42,6 +47,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import de.hdodenhof.circleimageview.CircleImageView;
 
 import static android.app.Activity.RESULT_OK;
@@ -49,12 +57,12 @@ import static android.app.Activity.RESULT_OK;
 
 public class ProfileFragment extends Fragment {
 
-    private CircleImageView profileImageView,googleImage;
+    private CircleImageView profileImageView, googleImage;
     private EditText etFullName, etNumber, etAddress, etPassword;
     private Button btnUpdate;
     private TextView tvChangePic;
     private StorageTask uploadTask;
-
+    private String img_url;
     private Uri imageUri;
     private String myurl;
     private StorageReference storageProfilePictureReference;
@@ -76,17 +84,23 @@ public class ProfileFragment extends Fragment {
         tvChangePic = view.findViewById(R.id.tv_profile_changepic);
         btnUpdate = view.findViewById(R.id.btn_profile_update);
 
-        if (Singleton.obj.googleId == null) {
-            etPassword.setVisibility(View.VISIBLE);
 
-        } else {
+        if (Singleton.obj.googleId == null && Singleton.obj.fbId == null) {
+            etPassword.setVisibility(View.VISIBLE);
+            tvChangePic.setVisibility(View.VISIBLE);
+            profileImageView.setVisibility(View.VISIBLE);
+            googleImage.setVisibility(View.GONE);
+
+        } else if (Singleton.obj.googleId != null) {
             tvChangePic.setVisibility(View.GONE);
             etPassword.setVisibility(View.GONE);
             profileImageView.setVisibility(View.GONE);
             googleImage.setVisibility(View.VISIBLE);
-
-
-
+        } else if (Singleton.obj.fbId != null) {
+            tvChangePic.setVisibility(View.GONE);
+            etPassword.setVisibility(View.GONE);
+            profileImageView.setVisibility(View.GONE);
+            googleImage.setVisibility(View.VISIBLE);
         }
 
 
@@ -154,7 +168,7 @@ public class ProfileFragment extends Fragment {
     }
 
     private void updateOnlyUserInfo() {
-        if (Singleton.obj.googleId == null) {
+        if (Singleton.obj.googleId == null && Singleton.obj.fbId == null) {
             DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("Users");
             HashMap<String, Object> userMap = new HashMap<>();
             userMap.put("name", etFullName.getText().toString());
@@ -168,7 +182,7 @@ public class ProfileFragment extends Fragment {
             Toast.makeText(getContext(), "Profile Updated Successfully!", Toast.LENGTH_SHORT).show();
             // getActivity().finish();
 
-        } else {
+        } else if (Singleton.obj.googleId != null) {
             DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("Users");
             HashMap<String, Object> userMap = new HashMap<>();
             userMap.put("name", etFullName.getText().toString());
@@ -181,6 +195,18 @@ public class ProfileFragment extends Fragment {
 
             Toast.makeText(getContext(), "Profile Updated Successfully!", Toast.LENGTH_SHORT).show();
             // getActivity().finish();
+        } else if (Singleton.obj.fbId != null) {
+            DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("Users");
+            HashMap<String, Object> userMap = new HashMap<>();
+            userMap.put("name", etFullName.getText().toString());
+            userMap.put("address", etAddress.getText().toString());
+            userMap.put("phoneOrder", etNumber.getText().toString());
+
+
+            ref.child(Singleton.obj.fbId).updateChildren(userMap);
+
+
+            Toast.makeText(getContext(), "Profile Updated Successfully!", Toast.LENGTH_SHORT).show();
         }
 
 
@@ -188,7 +214,7 @@ public class ProfileFragment extends Fragment {
 
     private void userInfoSaved() {
 
-        if (Singleton.obj.googleId == null) {
+        if (Singleton.obj.googleId == null && Singleton.obj.fbId == null) {
             if (TextUtils.isEmpty(etFullName.getText().toString())) {
 
                 Toast.makeText(getContext(), "Name is Required...", Toast.LENGTH_SHORT).show();
@@ -209,7 +235,7 @@ public class ProfileFragment extends Fragment {
                 uploadImage();
             }
 
-        } else {
+        } else if (Singleton.obj.googleId != null) {
             if (TextUtils.isEmpty(etFullName.getText().toString())) {
 
                 Toast.makeText(getContext(), "Name is Required...", Toast.LENGTH_SHORT).show();
@@ -222,8 +248,20 @@ public class ProfileFragment extends Fragment {
 
                 Toast.makeText(getContext(), "Address is Required...", Toast.LENGTH_SHORT).show();
 
-            } else if (checker.equals("clicked")) {
-                uploadImage();
+            }
+        } else if (Singleton.obj.fbId != null) {
+            if (TextUtils.isEmpty(etFullName.getText().toString())) {
+
+                Toast.makeText(getContext(), "Name is Required...", Toast.LENGTH_SHORT).show();
+
+            } else if (TextUtils.isEmpty(etNumber.getText().toString())) {
+
+                Toast.makeText(getContext(), "Number is Required...", Toast.LENGTH_SHORT).show();
+
+            } else if (TextUtils.isEmpty(etAddress.getText().toString())) {
+
+                Toast.makeText(getContext(), "Address is Required...", Toast.LENGTH_SHORT).show();
+
             }
         }
     }
@@ -235,8 +273,7 @@ public class ProfileFragment extends Fragment {
         progressDialog.setCanceledOnTouchOutside(false);
         progressDialog.show();
 
-        if (Singleton.obj.googleId == null) {
-
+        if (Singleton.obj.googleId == null && Singleton.obj.fbId == null) {
             if (imageUri != null) {
                 final StorageReference filereference = storageProfilePictureReference
                         .child(Prevalent.currentOnlineUser.getPhone() + ".jpg");
@@ -284,63 +321,17 @@ public class ProfileFragment extends Fragment {
                 Toast.makeText(getContext(), "Image is not Selected", Toast.LENGTH_LONG).show();
 
             }
-        }//this is checking google Users
-        else {
-
-            if (imageUri != null) {
-                final StorageReference filereference = storageProfilePictureReference
-                        .child(Singleton.obj.googleId + ".jpg");
-
-                uploadTask = filereference.putFile(imageUri);
-
-                uploadTask.continueWithTask(new Continuation() {
-                    @Override
-                    public Object then(@NonNull Task task) throws Exception {
-
-                        if (!task.isSuccessful()) {
-                            throw task.getException();
-                        }
-                        return filereference.getDownloadUrl();
-                    }
-                })
-                        .addOnCompleteListener(new OnCompleteListener<Uri>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Uri> task) {
-                                if (task.isSuccessful()) {
-                                    Uri downloadUrl = task.getResult();
-                                    myurl = downloadUrl.toString();
-
-                                    DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("Users");
-                                    HashMap<String, Object> userMap = new HashMap<>();
-                                    userMap.put("name", etFullName.getText().toString());
-                                    userMap.put("address", etAddress.getText().toString());
-                                    userMap.put("phoneOrder", etNumber.getText().toString());
-                                    userMap.put("image", myurl);
-
-                                    ref.child(Singleton.obj.googleId).updateChildren(userMap);
-
-                                    progressDialog.dismiss();
-
-                                    Toast.makeText(getContext(), "Profile Info Updated Successfully!", Toast.LENGTH_SHORT).show();
-
-                                } else {
-                                    progressDialog.dismiss();
-                                    Toast.makeText(getContext(), "Error.", Toast.LENGTH_SHORT).show();
-                                }
-                            }
-                        });
-            } else {
-                Toast.makeText(getContext(), "Image is not Selected", Toast.LENGTH_LONG).show();
-
-            }
         }
+
 
     }
 
-    private void userInfoDisplay(final CircleImageView profileImageView, final EditText etFullName, final EditText etNumber, final EditText etAddress, final EditText etPassword) {
+    private void userInfoDisplay(final CircleImageView profileImageView,
+                                 final EditText etFullName, final EditText etNumber, final EditText etAddress,
+                                 final EditText etPassword) {
         DatabaseReference databaseReference;
 
-        if (Singleton.obj.googleId == null) {
+        if (Singleton.obj.googleId == null && Singleton.obj.fbId == null) {
 
             databaseReference = FirebaseDatabase.getInstance().getReference().child("Users").child(Prevalent.currentOnlineUser.getPhone());
             databaseReference.addValueEventListener(new ValueEventListener() {
@@ -369,14 +360,13 @@ public class ProfileFragment extends Fragment {
 
                 }
             });
-        } else {
+        } else if (Singleton.obj.googleId != null) {
             databaseReference = FirebaseDatabase.getInstance().getReference().child("Users").child(Singleton.obj.googleId);
             databaseReference.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     if (snapshot.exists()) {
-                        if (snapshot.child("image").exists()) {
-                            String img = snapshot.child("image").getValue().toString();
+                        if (snapshot.child("phoneOrder").exists()) {
                             String name = snapshot.child("name").getValue().toString();
                             String number = snapshot.child("phoneOrder").getValue().toString();
                             String address = snapshot.child("address").getValue().toString();
@@ -387,9 +377,47 @@ public class ProfileFragment extends Fragment {
                             etFullName.setText(name);
                             etNumber.setText(number);
                             etAddress.setText(address);
+                        } else {
+                            GoogleSignInAccount signIn = GoogleSignIn.getLastSignedInAccount(getContext());
+
+                            String name = snapshot.child("name").getValue().toString();
+                            Picasso.get().load(signIn.getPhotoUrl()).into(googleImage);
+                            etFullName.setText(name);
                         }
                     }
                 }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+        } else if (Singleton.obj.fbId != null) {
+            databaseReference = FirebaseDatabase.getInstance().getReference().child("Users").child(Singleton.obj.fbId);
+            databaseReference.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    if (snapshot.exists()) {
+                        if (snapshot.child("phoneOrder").exists()) {
+                            String name = snapshot.child("name").getValue().toString();
+                            String number = snapshot.child("phoneOrder").getValue().toString();
+                            String address = snapshot.child("address").getValue().toString();
+                            String image = snapshot.child("image").getValue().toString();
+
+                            Picasso.get().load(image).into(googleImage);
+                            etFullName.setText(name);
+                            etNumber.setText(number);
+                            etAddress.setText(address);
+                        }else{
+                            String image = snapshot.child("image").getValue().toString();
+                            String name = snapshot.child("name").getValue().toString();
+                            Picasso.get().load(image).into(googleImage);
+                            etFullName.setText(name);
+                        }
+                    }
+                }
+
+
 
                 @Override
                 public void onCancelled(@NonNull DatabaseError error) {

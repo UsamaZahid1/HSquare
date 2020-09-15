@@ -92,7 +92,7 @@ public class ConfirmOrderAcitvity extends AppCompatActivity {
         String orderId = UUID.randomUUID().toString();
 
 //orderId because user can put multiple order
-        if (Singleton.obj.googleId == null) {
+        if (Singleton.obj.googleId == null && Singleton.obj.fbId == null) {
             DatabaseReference orderRef = FirebaseDatabase.getInstance().getReference().child("Orders")
                     .child(Prevalent.currentOnlineUser.getPhone());
 
@@ -132,7 +132,7 @@ public class ConfirmOrderAcitvity extends AppCompatActivity {
                     }
                 }
             });
-        } else {
+        } else if(Singleton.obj.googleId != null){
 
             DatabaseReference orderRef = FirebaseDatabase.getInstance().getReference().child("Orders")
                     .child(Singleton.obj.googleId);
@@ -158,6 +158,46 @@ public class ConfirmOrderAcitvity extends AppCompatActivity {
                         FirebaseDatabase.getInstance().getReference().child("Cart List")
                                 .child("Google Users")
                                 .child(Singleton.obj.googleId)
+                                .removeValue()
+                                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        if (task.isSuccessful()) {
+                                            Toast.makeText(ConfirmOrderAcitvity.this, "Your Order has been placed!", Toast.LENGTH_SHORT).show();
+                                            Intent intent = new Intent(ConfirmOrderAcitvity.this, SuccessOrder.class);
+                                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                            startActivity(intent);
+                                        }
+                                    }
+                                });
+                    }
+                }
+            });
+        }else if(Singleton.obj.fbId != null){
+            DatabaseReference orderRef = FirebaseDatabase.getInstance().getReference().child("Orders")
+                    .child(Singleton.obj.fbId);
+
+            HashMap<String, Object> ordersMap = new HashMap<>();
+            ordersMap.put("TotalAmount", totalAmount);
+            ordersMap.put("name", etName.getText().toString());
+            ordersMap.put("phoneNumber", etNumber.getText().toString());
+            ordersMap.put("address", etAddress.getText().toString());
+            ordersMap.put("cityName", etCityName.getText().toString());
+            ordersMap.put("Measurement", radioButton.getText());
+            ordersMap.put("date", saveCurrentDate);
+            ordersMap.put("time", saveCurrentTime);
+            ordersMap.put("state", "not shipped");
+
+
+            orderRef.updateChildren(ordersMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+
+                    if (task.isSuccessful()) {
+
+                        FirebaseDatabase.getInstance().getReference().child("Cart List")
+                                .child("Facebook Users")
+                                .child(Singleton.obj.fbId)
                                 .removeValue()
                                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                                     @Override

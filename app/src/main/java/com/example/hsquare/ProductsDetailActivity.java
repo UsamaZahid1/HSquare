@@ -98,7 +98,7 @@ public class ProductsDetailActivity extends AppCompatActivity {
         cartMap.put("quantity", numberButton.getNumber());
         cartMap.put("discount", "");
 
-        if (Singleton.obj.googleId == null) {
+        if (Singleton.obj.googleId == null && Singleton.obj.fbId==null) {
 
             cartListRefernce.child("Users Cart").child(Prevalent.currentOnlineUser.getPhone()).child("Products")
                     .child(productId)
@@ -122,7 +122,7 @@ public class ProductsDetailActivity extends AppCompatActivity {
                             }
                         }
                     });
-        } else {
+        } else if(Singleton.obj.googleId!=null){
             cartListRefernce.child("Google Users").child(Singleton.obj.googleId).child("Products")
                     .child(productId)
                     .updateChildren(cartMap)
@@ -132,6 +132,29 @@ public class ProductsDetailActivity extends AppCompatActivity {
                             if (task.isSuccessful()) {
 
                                 cartListRefernce.child("Admin Cart").child("Google Users").child(Singleton.obj.googleId).child("Products")
+                                        .child(productId)
+                                        .updateChildren(cartMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        Toast.makeText(ProductsDetailActivity.this, "Added to Cart List...", Toast.LENGTH_SHORT).show();
+                                        Intent intent = new Intent(ProductsDetailActivity.this, HomeActivity.class);
+                                        startActivity(intent);
+
+                                    }
+                                });
+                            }
+                        }
+                    });
+        }else if(Singleton.obj.fbId!=null){
+            cartListRefernce.child("Facebook Users").child(Singleton.obj.fbId).child("Products")
+                    .child(productId)
+                    .updateChildren(cartMap)
+                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if (task.isSuccessful()) {
+
+                                cartListRefernce.child("Admin Cart").child("Facebook Users").child(Singleton.obj.fbId).child("Products")
                                         .child(productId)
                                         .updateChildren(cartMap).addOnCompleteListener(new OnCompleteListener<Void>() {
                                     @Override
@@ -158,7 +181,7 @@ public class ProductsDetailActivity extends AppCompatActivity {
 
                     tvPname.setText(products.getPname());
                     tvPdesc.setText(products.getDescription());
-                    tvPprice.setText("PKR. " + products.getPrice());
+                    tvPprice.setText(products.getPrice());
                     Picasso.get().load(products.getImage()).into(ivPimg);
                 }
             }
@@ -172,7 +195,7 @@ public class ProductsDetailActivity extends AppCompatActivity {
 
     private void checkOrdersState() {
         DatabaseReference reference;
-        if (Singleton.obj.googleId == null) {
+        if (Singleton.obj.googleId == null && Singleton.obj.fbId == null) {
             reference = FirebaseDatabase.getInstance().getReference().child("Orders").child(Prevalent.currentOnlineUser.getPhone());
 
             reference.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -196,8 +219,32 @@ public class ProductsDetailActivity extends AppCompatActivity {
 
                 }
             });
-        } else {
+        } else if(Singleton.obj.googleId!=null){
             reference = FirebaseDatabase.getInstance().getReference().child("Orders").child("Google Users").child(Singleton.obj.googleId);
+
+            reference.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    if (snapshot.exists()) {
+                        String shippingState = snapshot.child("state").getValue().toString();
+                        String UserName = snapshot.child("name").getValue().toString();
+
+                        if (shippingState.equals("shipped")) {
+
+                            state = "Order Shipped";
+                        } else if (shippingState.equals("not shipped")) {
+                            state = "Order Placed";
+                        }
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+        }else if(Singleton.obj.fbId!=null){
+            reference = FirebaseDatabase.getInstance().getReference().child("Orders").child("Facebook Users").child(Singleton.obj.fbId);
 
             reference.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override

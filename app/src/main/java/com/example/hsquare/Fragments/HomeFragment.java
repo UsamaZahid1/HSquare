@@ -51,8 +51,8 @@ public class HomeFragment extends Fragment {
     ImageSlider imageSlider;
     private DatabaseReference productReference;
     private RecyclerView recyclerView;
-    private String gId, gEmail,googleUser;
-    private String googleUserthis="googleUser";
+    private String gId, gEmail, googleUser;
+    private String googleUserthis = "googleUser";
 
 
     @Override
@@ -60,7 +60,6 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_home, container, false);
-
 
 
         imageSlider = view.findViewById(R.id.imageslider_home);

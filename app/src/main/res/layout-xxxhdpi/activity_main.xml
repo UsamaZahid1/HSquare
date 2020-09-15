@@ -94,7 +94,7 @@
     <View
         android:layout_width="200dp"
         android:layout_height="1dp"
-        android:layout_marginLeft="10dp"
+        android:layout_gravity="center"
         android:layout_marginTop="35dp"
         android:background="@color/grey" />
 
@@ -102,7 +102,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="30dp"
         android:orientation="horizontal">
 
         <ImageView
@@ -111,13 +111,18 @@
             android:layout_height="33dp"
             android:src="@drawable/google" />
 
-
         <ImageView
             android:id="@+id/iv_fbsignin"
             android:layout_width="33dp"
             android:layout_height="33dp"
             android:layout_marginLeft="50dp"
             android:src="@drawable/facebook" />
+
+<!--        <com.facebook.login.widget.LoginButton-->
+<!--            android:id="@+id/btn_fblogin"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginLeft="20dp" />-->
     </LinearLayout>
 
 </LinearLayout>

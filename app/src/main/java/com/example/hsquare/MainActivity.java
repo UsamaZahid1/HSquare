@@ -11,10 +11,18 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.example.hsquare.Fragments.HomeFragment;
-import com.example.hsquare.Model.GoogleUsers;
 import com.example.hsquare.Model.Users;
 import com.example.hsquare.Prevalent.Prevalent;
+import com.facebook.AccessToken;
+import com.facebook.AccessTokenTracker;
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.GraphRequest;
+import com.facebook.GraphResponse;
+import com.facebook.login.LoginManager;
+import com.facebook.login.LoginResult;
+import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -24,6 +32,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
@@ -33,11 +42,15 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.UUID;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import io.paperdb.Paper;
 
@@ -49,8 +62,10 @@ public class MainActivity extends AppCompatActivity {
     GoogleSignInOptions gso;
     GoogleSignInClient mGoogleSignInClient;
     private FirebaseAuth mAuth;
-    private String gName, gEmail, gId;
-    private String googleUser = "googleUser";
+    private String gName, gEmail, gId, fId;
+    LoginButton loginButton;
+    private static final String EMAIL = "email";
+    CallbackManager callbackManager;
 
 
     @Override
@@ -62,13 +77,62 @@ public class MainActivity extends AppCompatActivity {
         btnQuickShop = findViewById(R.id.btn_main_quickshop);
         ivGoogleSignin = findViewById(R.id.iv_googlesignin);
         ivFbSignin = findViewById(R.id.iv_fbsignin);
-
+//        loginButton = findViewById(R.id.btn_fblogin);
 
         mAuth = FirebaseAuth.getInstance();
 
+        //Facebook login
+//        createFbRequest();
+        callbackManager = CallbackManager.Factory.create();
+
+        ivFbSignin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                LoginManager.getInstance().logInWithReadPermissions(MainActivity.this, Arrays.asList("email", "public_profile"));
+                LoginManager.getInstance().registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+                    @Override
+                    public void onSuccess(LoginResult loginResult) {
+                        handleFacebookAccessToken(loginResult.getAccessToken());
+                        GraphRequest request = GraphRequest.newMeRequest(
+                                loginResult.getAccessToken(),
+                                new GraphRequest.GraphJSONObjectCallback() {
+                                    @Override
+                                    public void onCompleted(JSONObject object, GraphResponse response) {
+                                        Log.v("LoginActivity", response.toString());
+
+                                        // Application code
+                                        try {
+                                            String email = object.getString("email");
+                                            String birthday = object.getString("birthday");
+                                        } catch (JSONException e) {
+                                            e.printStackTrace();
+                                        }
+                                        // 01/31/1980 format
+                                    }
+                                });
+                        Bundle parameters = new Bundle();
+                        parameters.putString("fields", "id,name,email,gender,birthday");
+                        request.setParameters(parameters);
+                        request.executeAsync();
+
+
+                    }
+
+
+                    @Override
+                    public void onCancel() {
+
+                    }
+
+                    @Override
+                    public void onError(FacebookException error) {
+
+                    }
+                });
+            }
+        });
         //Google Sign in
         createRequest();
-
 
         progressDialog = new ProgressDialog(this);
 
@@ -141,6 +205,28 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    private void handleFacebookAccessToken(final AccessToken token) {
+        AuthCredential credential = FacebookAuthProvider.getCredential(token.getToken());
+        mAuth.signInWithCredential(credential)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            // Sign in success, update UI with the signed-in user's information
+                            FirebaseUser user = mAuth.getCurrentUser();
+
+                        } else {
+                            // If sign in fails, display a message to the user.
+
+                            Toast.makeText(MainActivity.this, "Authentication failed.",
+                                    Toast.LENGTH_SHORT).show();
+                        }
+
+                        // ...
+                    }
+                });
+    }
+
     private void createRequest() {
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
@@ -157,18 +243,28 @@ public class MainActivity extends AppCompatActivity {
         super.onStart();
 
         FirebaseUser user = mAuth.getCurrentUser();
+        if (Singleton.obj.googleId != null) {
+            if (user != null) {
 
-        if (user != null) {
+                Intent intent = new Intent(MainActivity.this, HomeActivity.class);
+                GoogleSignInAccount sign = GoogleSignIn.getLastSignedInAccount(MainActivity.this);
 
-            Intent intent = new Intent(MainActivity.this, HomeActivity.class);
-            GoogleSignInAccount sign = GoogleSignIn.getLastSignedInAccount(MainActivity.this);
-
-            Singleton.obj.googleId = sign.getId();
+                Singleton.obj.googleId = sign.getId();
 
 
-            startActivity(intent);
+                startActivity(intent);
+            }
+        } else if (Singleton.obj.fbId != null) {
+                if (user != null) {
+
+                    Intent intent = new Intent(MainActivity.this, HomeActivity.class);
+
+
+                    startActivity(intent);
+                }
+            }
         }
-    }
+
 
     private void googleSignIn() {
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
@@ -179,6 +275,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+
+        callbackManager.onActivityResult(requestCode, resultCode, data);
 
         // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
         if (requestCode == RC_SIGN_IN) {
@@ -194,6 +292,91 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
+
+    AccessTokenTracker tokenTracker = new AccessTokenTracker() {
+        @Override
+        protected void onCurrentAccessTokenChanged(AccessToken oldAccessToken, AccessToken currentAccessToken) {
+
+            if (currentAccessToken == null) {
+                Toast.makeText(MainActivity.this, "User Logged out", Toast.LENGTH_LONG).show();
+            } else {
+                loadUserProfile(currentAccessToken);
+            }
+        }
+    };
+
+    private void loadUserProfile(AccessToken token) {
+
+        GraphRequest request = GraphRequest.newMeRequest(token, new GraphRequest.GraphJSONObjectCallback() {
+            @Override
+            public void onCompleted(JSONObject object, GraphResponse response) {
+
+                try {
+                    final String first_name = object.getString("first_name");
+                    final String last_name = object.getString("last_name");
+                    final String email = object.getString("email");
+                    fId = object.getString("id");
+                    final String img_url = "https://graph.facebook.com/" + fId + "/picture?type=normal";
+
+
+                    final DatabaseReference rootRef;
+                    rootRef = FirebaseDatabase.getInstance().getReference();
+
+                    rootRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull final DataSnapshot snapshot) {
+                            if (!snapshot.child("Users").child(fId).exists()) {
+
+
+                                HashMap<String, Object> userDataMap = new HashMap<>();
+                                userDataMap.put("email", email);
+                                userDataMap.put("name", first_name + last_name);
+                                userDataMap.put("id", fId);
+                                userDataMap.put("image", img_url);
+
+                                rootRef.child("Users").child(fId).updateChildren(userDataMap)
+
+                                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<Void> task) {
+                                                if (task.isSuccessful()) {
+                                                    Intent intent = new Intent(MainActivity.this, HomeActivity.class);
+//                                                                final GoogleUsers users = snapshot.child("Users").child(gId).getValue(GoogleUsers.class);
+                                                    Singleton.obj.fbId = fId;
+
+                                                    startActivity(intent);
+                                                }
+                                            }
+                                        });
+                            } else {
+                                Intent intent = new Intent(MainActivity.this, HomeActivity.class);
+//                                          final GoogleUsers users = snapshot.child("Users").child(gId).getValue(GoogleUsers.class);
+                                Singleton.obj.fbId = fId;
+
+                                startActivity(intent);
+
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        });
+
+        Bundle parameters = new Bundle();
+        parameters.putString("fields", "first_name,last_name,email,id");
+        request.setParameters(parameters);
+        request.executeAsync();
+
+    }
+
 
     private void firebaseAuthWithGoogle(String idToken) {
         AuthCredential credential = GoogleAuthProvider.getCredential(idToken, null);
@@ -232,11 +415,10 @@ public class MainActivity extends AppCompatActivity {
                                                         @Override
                                                         public void onComplete(@NonNull Task<Void> task) {
                                                             if (task.isSuccessful()) {
+
                                                                 Intent intent = new Intent(MainActivity.this, HomeActivity.class);
 //                                                                final GoogleUsers users = snapshot.child("Users").child(gId).getValue(GoogleUsers.class);
                                                                 Singleton.obj.googleId = gId;
-                                                                intent.putExtra("googleUser", "googleUser");
-
 
                                                                 startActivity(intent);
                                                             }
