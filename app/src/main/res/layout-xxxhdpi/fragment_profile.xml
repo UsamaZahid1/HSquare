@@ -1,57 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/black">
-
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="70dp"
-        android:layout_height="wrap_content">
-
-        <RelativeLayout
-            android:layout_width="250dp"
-            android:layout_height="200dp"
-            android:gravity="center"
-            android:orientation="vertical"
-            android:layout_alignParentTop="true"
-            android:background="@color/white" >
-
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/civ_profileimage"
-                android:layout_width="140dp"
-                android:layout_height="140dp"
-                android:src="@drawable/profile" />
-
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/civ_gooleimage"
-                android:layout_width="140dp"
-                android:layout_height="140dp"
-                android:src="@drawable/profile" />
-
-            <TextView
-                android:id="@+id/tv_profile_changepic"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Change Picture"
-                android:textColor="@color/black"
-                android:textSize="18sp"
-                android:layout_below="@+id/civ_profileimage"
-
-                android:textStyle="bold" />
-        </RelativeLayout>
-    </RelativeLayout>
-
-
+    android:background="@drawable/gradient">
 
 
     <androidx.core.widget.NestedScrollView
         android:id="@+id/scrollView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="270dp">
+        android:layout_centerVertical="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
@@ -61,9 +27,12 @@
             android:background="@color/white"
             app:cardCornerRadius="10dp">
 
+
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="420dp"
+                android:background="@drawable/gradient"
+                android:gravity="center_vertical"
                 android:orientation="vertical">
 
                 <EditText
@@ -76,7 +45,8 @@
                     android:layout_marginRight="15dp"
                     android:hint="Full Name"
                     android:padding="18dp"
-                    android:textColor="@color/black"
+                    android:textColor="@color/white"
+                    android:textColorHint="@color/white"
                     android:textSize="18sp" />
 
                 <EditText
@@ -90,6 +60,8 @@
                     android:hint="Phone Number"
                     android:inputType="number"
                     android:padding="18dp"
+                    android:textColor="@color/white"
+                    android:textColorHint="@color/white"
 
                     android:textSize="18sp" />
 
@@ -104,7 +76,9 @@
                     android:hint="Password"
                     android:inputType="textPassword"
                     android:padding="18dp"
-                    android:textColor="@color/black"
+                    android:textColor="@color/white"
+                    android:textColorHint="@color/white"
+
                     android:textSize="18sp" />
 
                 <EditText
@@ -117,7 +91,8 @@
                     android:layout_marginRight="15dp"
                     android:hint="Address"
                     android:padding="18dp"
-                    android:textColor="@color/black"
+                    android:textColor="@color/white"
+                    android:textColorHint="@color/white"
                     android:textSize="18sp" />
 
 
@@ -130,12 +105,12 @@
                     android:layout_marginTop="20dp"
                     android:layout_marginRight="15dp"
                     android:layout_marginBottom="15dp"
-                    android:background="@drawable/buttons"
+                    android:background="@drawable/buttons_white"
                     android:gravity="center"
                     android:padding="18dp"
                     android:text="Update"
                     android:textAllCaps="false"
-                    android:textColor="@color/white"
+                    android:textColor="@color/black"
                     android:textSize="18sp" />
             </LinearLayout>
 
@@ -143,5 +118,37 @@
 
     </androidx.core.widget.NestedScrollView>
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="375dp"
+        android:layout_marginLeft="140dp"
+        android:layout_gravity="center_horizontal"
+        app:layout_constraintBottom_toBottomOf="@+id/scrollView"
+        app:layout_constraintStart_toStartOf="parent">
 
-</RelativeLayout>
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/civ_gooleimage"
+            android:layout_width="140dp"
+            android:layout_height="140dp"
+            android:src="@drawable/profile"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/civ_profileimage"
+            android:layout_width="140dp"
+            android:layout_height="140dp"
+            android:src="@drawable/profile"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

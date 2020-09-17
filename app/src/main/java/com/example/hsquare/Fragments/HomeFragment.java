@@ -105,6 +105,9 @@ public class HomeFragment extends Fragment {
 
 
         recyclerView.setHasFixedSize(true);
+        recyclerView.setItemViewCacheSize(20);
+        recyclerView.setDrawingCacheEnabled(true);
+        recyclerView.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
 
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
 

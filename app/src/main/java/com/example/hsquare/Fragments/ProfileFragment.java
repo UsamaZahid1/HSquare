@@ -81,23 +81,22 @@ public class ProfileFragment extends Fragment {
         etNumber = view.findViewById(R.id.et_profile_number);
         etAddress = view.findViewById(R.id.et_profile_adress);
         etPassword = view.findViewById(R.id.et_profile_password);
-        tvChangePic = view.findViewById(R.id.tv_profile_changepic);
         btnUpdate = view.findViewById(R.id.btn_profile_update);
 
 
         if (Singleton.obj.googleId == null && Singleton.obj.fbId == null) {
             etPassword.setVisibility(View.VISIBLE);
-            tvChangePic.setVisibility(View.VISIBLE);
+       //     tvChangePic.setVisibility(View.VISIBLE);
             profileImageView.setVisibility(View.VISIBLE);
             googleImage.setVisibility(View.GONE);
 
         } else if (Singleton.obj.googleId != null) {
-            tvChangePic.setVisibility(View.GONE);
+//            tvChangePic.setVisibility(View.GONE);
             etPassword.setVisibility(View.GONE);
             profileImageView.setVisibility(View.GONE);
             googleImage.setVisibility(View.VISIBLE);
         } else if (Singleton.obj.fbId != null) {
-            tvChangePic.setVisibility(View.GONE);
+         //   tvChangePic.setVisibility(View.GONE);
             etPassword.setVisibility(View.GONE);
             profileImageView.setVisibility(View.GONE);
             googleImage.setVisibility(View.VISIBLE);
@@ -125,17 +124,17 @@ public class ProfileFragment extends Fragment {
             }
         });
 
-        tvChangePic.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                profileImageView.setVisibility(View.VISIBLE);
-                checker = "clicked";
-
-                CropImage.activity(imageUri)
-                        .setAspectRatio(1, 1)
-                        .start(view.getContext(), ProfileFragment.this);
-            }
-        });
+//        tvChangePic.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                profileImageView.setVisibility(View.VISIBLE);
+//                checker = "clicked";
+//
+//                CropImage.activity(imageUri)
+//                        .setAspectRatio(1, 1)
+//                        .start(view.getContext(), ProfileFragment.this);
+//            }
+//        });
 
         profileImageView.setOnClickListener(new View.OnClickListener() {
             @Override

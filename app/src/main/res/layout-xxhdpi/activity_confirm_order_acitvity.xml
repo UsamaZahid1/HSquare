@@ -4,17 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/black"
+    android:background="@drawable/gradient"
     tools:context=".ConfirmOrderAcitvity">
 
-    <ImageView
-        android:id="@+id/iv_done"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_centerHorizontal="true"
-        android:layout_gravity="center"
-        android:layout_marginTop="0dp"
-        android:src="@drawable/done_white" />
 
     <TextView
         android:id="@+id/textView1"
@@ -22,7 +14,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/iv_done"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="40dp"
         android:text="Confirm Order By:"
         android:textColor="@color/white"
         android:textSize="20sp"
@@ -41,20 +33,11 @@
         android:textStyle="bold" />
 
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cardView"
-        android:layout_width="match_parent"
+    <ScrollView
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textView"
-        android:layout_centerVertical="true"
-        android:layout_marginLeft="15dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginRight="15dp"
-        android:background="@color/white"
-        app:cardCornerRadius="10dp">
-<ScrollView
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
+        android:layout_centerVertical="true">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -70,7 +53,9 @@
                 android:layout_marginRight="15dp"
                 android:hint="Full Name"
                 android:padding="18dp"
-                android:textColor="@color/black"
+                android:theme="@style/MyEditTextTheme"
+                android:textColorHint="@color/lgrey"
+                android:textColor="@color/white"
                 android:textSize="18sp" />
 
             <EditText
@@ -83,6 +68,9 @@
                 android:layout_marginRight="15dp"
                 android:hint="Phone Number"
                 android:inputType="number"
+                android:theme="@style/MyEditTextTheme"
+                android:textColorHint="@color/lgrey"
+                android:textColor="@color/white"
                 android:padding="18dp"
                 android:textSize="18sp" />
 
@@ -96,7 +84,9 @@
                 android:layout_marginRight="15dp"
                 android:hint="Your Shipment Address"
                 android:padding="18dp"
-                android:textColor="@color/black"
+                android:theme="@style/MyEditTextTheme"
+                android:textColorHint="@color/lgrey"
+                android:textColor="@color/white"
                 android:textSize="18sp" />
 
             <EditText
@@ -109,7 +99,9 @@
                 android:layout_marginRight="15dp"
                 android:hint="City Name"
                 android:padding="18dp"
-                android:textColor="@color/black"
+                android:theme="@style/MyEditTextTheme"
+                android:textColorHint="@color/lgrey"
+                android:textColor="@color/white"
                 android:textSize="18sp" />
 
             <TextView
@@ -118,8 +110,9 @@
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="20dp"
-                android:text="You don't know how to take measurement? No Problem, Send a measurement taker at the respective address!"
-                android:textSize="14sp" />
+                android:textColor="@color/white"
+                android:text="Do you want us to take measurements at your door steps?"
+                android:textSize="16sp" />
 
             <RadioGroup
                 android:id="@+id/radioGroup"
@@ -132,6 +125,7 @@
                     android:id="@+id/radioYes"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
+                    android:textColor="@color/lgrey"
                     android:layout_marginTop="10dp"
                     android:checked="true"
                     android:text=" Yes"
@@ -143,6 +137,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="0dp"
                     android:checked="false"
+                    android:textColor="@color/lgrey"
                     android:text=" No"
                     android:textSize="18dp" />
             </RadioGroup>
@@ -156,16 +151,15 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="15dp"
                 android:layout_marginBottom="15dp"
-                android:background="@drawable/buttons"
+                android:background="@drawable/buttons_white"
                 android:gravity="center"
                 android:padding="18dp"
                 android:text="Confirm"
                 android:textAllCaps="false"
-                android:textColor="@color/white"
+                android:textColor="@color/black"
                 android:textSize="18sp" />
         </LinearLayout>
-</ScrollView>
-    </androidx.cardview.widget.CardView>
+    </ScrollView>
 
 
 </RelativeLayout>

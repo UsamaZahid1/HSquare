@@ -32,7 +32,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class ProductsDetailActivity extends AppCompatActivity {
 
-    private TextView tvPname, tvPdesc, tvPprice;
+    private TextView tvPname, tvPdesc, tvPprice,tvPkr;
     private ImageView ivPimg;
     private ElegantNumberButton numberButton;
     private Button btnAddToCart;
@@ -48,10 +48,13 @@ public class ProductsDetailActivity extends AppCompatActivity {
 
         tvPname = findViewById(R.id.tv_products_detail_pname);
         tvPdesc = findViewById(R.id.tv_products_detail_pdesc);
+        tvPkr = findViewById(R.id.tv_pkr);
         tvPprice = findViewById(R.id.tv_products_detail_pprice);
         ivPimg = findViewById(R.id.iv_products_detail_productsimg);
         btnAddToCart = findViewById(R.id.btn_products_details_addtocart);
         numberButton = findViewById(R.id.btn_products_detail_numberbutton);
+
+        tvPkr.setText("PKR. ");
 
         btnAddToCart.setOnClickListener(new View.OnClickListener() {
             @Override

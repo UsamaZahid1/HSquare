@@ -3,40 +3,51 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/logindesign">
+    android:background="@drawable/gradient">
 
-    <!--    <ImageView-->
-    <!--        android:id="@+id/hlogo"-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="300dp"-->
-    <!--        android:layout_marginTop="50dp"-->
-    <!--        android:src="@drawable/applogoblack" />-->
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:padding="20dp"
+        android:gravity="start"
+        android:layout_marginTop="30dp"
+        android:text="Already \nhave an\nAccount?"
+        android:textColor="@color/white"
+        android:textSize="20dp"
+        android:textStyle="bold" />
 
     <EditText
         android:id="@+id/et_login_number"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="15dp"
-        android:layout_marginTop="190dp"
-        android:layout_marginRight="15dp"
+        android:textColor="@color/white"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="140dp"
+        android:layout_marginRight="20dp"
         android:hint="Phone Number"
-        android:padding="20dp"
-        android:textSize="14sp" />
+        android:textColorHint="@color/lgrey"
+        android:padding="15dp"
+        android:textSize="12sp" />
 
     <EditText
         android:id="@+id/et_login_password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/et_login_number"
-        android:layout_marginLeft="15dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginRight="15dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="20dp"
         android:hint="Password"
+        android:textColor="@color/white"
         android:inputType="textPassword"
-        android:padding="20dp"
-        android:textSize="14sp" />
+        android:textColorHint="@color/lgrey"
+        android:padding="15dp"
+        android:textSize="12sp" />
 
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/linear_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -49,21 +60,25 @@
             style="@style/Material.Drawable.CheckBox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
+            android:layout_marginLeft="20dp"
             android:gravity="center_vertical"
             android:text="Remember me"
-            app:cbd_strokeColor="@color/colorPrimaryDark"
+            android:textColor="@color/lgrey"
+            app:cbd_strokeColor="@color/lgrey"
             android:textSize="12sp" />
 
         <TextView
             android:id="@+id/tv_login_forgetpassword"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="80dp"
+            android:layout_alignParentEnd="true"
+            android:layout_marginRight="20dp"
             android:text="Forget Password?"
+            android:textColor="@color/lgrey"
+            android:layout_alignBaseline="@+id/cb_login_rememberme"
             android:textSize="12sp" />
 
-    </LinearLayout>
+    </RelativeLayout>
 
 
     <Button
@@ -73,21 +88,21 @@
         android:layout_below="@id/linear_layout"
         android:layout_centerHorizontal="true"
         android:layout_marginLeft="15dp"
-        android:layout_marginTop="5dp"
-        android:padding="10dp"
+        android:layout_marginTop="15dp"
+        android:padding="15dp"
         android:layout_marginRight="15dp"
-        android:background="@drawable/buttons"
+        android:background="@drawable/buttons_white"
         android:text="Login"
         android:textAllCaps="false"
-        android:textColor="@color/white"
+        android:textColor="@color/black"
         android:textSize="12sp" />
 
     <ImageView
         android:id="@+id/iv_login_back"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/blackback"
-        android:layout_marginTop="0dp"
+        android:layout_height="60dp"
+        android:src="@drawable/whiteback"
+        android:layout_marginTop="10dp"
         android:layout_below="@id/btn_login_login"
         android:scaleType="fitStart"/>
 

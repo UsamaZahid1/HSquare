@@ -1,49 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/black">
-
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="50dp"
-        android:layout_height="wrap_content">
-
-        <LinearLayout
-            android:layout_width="250dp"
-            android:layout_height="200dp"
-            android:gravity="center"
-            android:orientation="vertical"
-            android:layout_alignParentTop="true"
-            android:background="@color/white" >
-
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/civ_profileimage"
-                android:layout_width="140dp"
-                android:layout_height="140dp"
-                android:src="@drawable/profile" />
-            <TextView
-                android:id="@+id/tv_profile_changepic"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_toRightOf="@id/civ_profileimage"
-                android:text="Change Picture"
-                android:textColor="@color/black"
-                android:textSize="18sp"
-                android:textStyle="bold" />
-        </LinearLayout>
-    </RelativeLayout>
-
-
+    android:background="@drawable/gradient">
 
 
     <androidx.core.widget.NestedScrollView
         android:id="@+id/scrollView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="250dp">
+        android:layout_centerVertical="true"
+        android:layout_marginBottom="104dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent">
+
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
@@ -53,9 +27,12 @@
             android:background="@color/white"
             app:cardCornerRadius="10dp">
 
+
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="360dp"
+                android:background="@drawable/gradient"
+                android:gravity="center_vertical"
                 android:orientation="vertical">
 
                 <EditText
@@ -67,9 +44,10 @@
                     android:layout_marginTop="10dp"
                     android:layout_marginRight="15dp"
                     android:hint="Full Name"
-                    android:padding="18dp"
-                    android:textColor="@color/black"
-                    android:textSize="18sp" />
+                    android:padding="16dp"
+                    android:textColor="@color/white"
+                    android:textColorHint="@color/white"
+                    android:textSize="14sp" />
 
                 <EditText
                     android:id="@+id/et_profile_number"
@@ -81,8 +59,11 @@
                     android:layout_marginRight="15dp"
                     android:hint="Phone Number"
                     android:inputType="number"
-                    android:padding="18dp"
-                    android:textSize="18sp" />
+                    android:padding="16dp"
+                    android:textColor="@color/white"
+                    android:textColorHint="@color/white"
+
+                    android:textSize="14sp" />
 
                 <EditText
                     android:id="@+id/et_profile_password"
@@ -94,9 +75,11 @@
                     android:layout_marginRight="15dp"
                     android:hint="Password"
                     android:inputType="textPassword"
-                    android:padding="18dp"
-                    android:textColor="@color/black"
-                    android:textSize="18sp" />
+                    android:padding="16dp"
+                    android:textColor="@color/white"
+                    android:textColorHint="@color/white"
+
+                    android:textSize="14sp" />
 
                 <EditText
                     android:id="@+id/et_profile_adress"
@@ -107,9 +90,10 @@
                     android:layout_marginTop="10dp"
                     android:layout_marginRight="15dp"
                     android:hint="Address"
-                    android:padding="18dp"
-                    android:textColor="@color/black"
-                    android:textSize="18sp" />
+                    android:padding="16dp"
+                    android:textColor="@color/white"
+                    android:textColorHint="@color/white"
+                    android:textSize="14sp" />
 
 
                 <Button
@@ -118,21 +102,52 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginLeft="15dp"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="20dp"
                     android:layout_marginRight="15dp"
                     android:layout_marginBottom="15dp"
-                    android:background="@drawable/buttons"
+                    android:background="@drawable/buttons_white"
                     android:gravity="center"
-                    android:padding="18dp"
+                    android:padding="16dp"
                     android:text="Update"
                     android:textAllCaps="false"
-                    android:textColor="@color/white"
-                    android:textSize="18sp" />
+                    android:textColor="@color/black"
+                    android:textSize="14sp" />
             </LinearLayout>
 
         </androidx.cardview.widget.CardView>
 
     </androidx.core.widget.NestedScrollView>
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="316dp"
+        android:layout_marginLeft="130dp"
+        app:layout_constraintBottom_toBottomOf="@+id/scrollView"
+        app:layout_constraintStart_toStartOf="parent">
 
-</RelativeLayout>
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/civ_gooleimage"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@drawable/profile"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/civ_profileimage"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@drawable/profile"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

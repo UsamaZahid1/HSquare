@@ -122,7 +122,7 @@ public class ProductsDetailGuestActivity extends AppCompatActivity {
 
                     tvPname.setText(products.getPname());
                     tvPdesc.setText(products.getDescription());
-                    tvPprice.setText("PKR. "+products.getPrice());
+                    tvPprice.setText(products.getPrice());
                     Picasso.get().load(products.getImage()).into(ivPimg);
                 }
             }

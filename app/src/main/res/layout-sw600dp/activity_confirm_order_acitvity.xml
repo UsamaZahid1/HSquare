@@ -4,17 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/black"
+    android:background="@drawable/gradient"
     tools:context=".ConfirmOrderAcitvity">
 
-    <ImageView
-        android:id="@+id/iv_done"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:layout_centerHorizontal="true"
-        android:layout_gravity="center"
-        android:layout_marginTop="20dp"
-        android:src="@drawable/done_white" />
 
     <TextView
         android:id="@+id/textView1"
@@ -22,10 +14,10 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/iv_done"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="40dp"
         android:text="Confirm Order By:"
         android:textColor="@color/white"
-        android:textSize="22sp"
+        android:textSize="25sp"
         android:textStyle="bold" />
 
     <TextView
@@ -37,139 +29,141 @@
         android:layout_marginTop="5dp"
         android:text="Giving Your Shipment Detials!"
         android:textColor="@color/white"
-        android:textSize="22sp"
+        android:textSize="25sp"
         android:textStyle="bold" />
 
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cardView"
-        android:layout_width="match_parent"
+    <ScrollView
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textView"
-        android:layout_centerVertical="true"
-        android:layout_marginLeft="15dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginRight="15dp"
-        android:background="@color/white"
-        app:cardCornerRadius="10dp">
+        android:layout_centerVertical="true">
 
-        <ScrollView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="25dp"
 
-            <LinearLayout
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/et_confirm_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:layout_below="@+id/hlogo"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="15dp"
+                android:hint="Full Name"
+                android:padding="18dp"
+                android:textColor="@color/white"
+                android:textColorHint="@color/lgrey"
+                android:textSize="20sp"
+                android:theme="@style/MyEditTextTheme" />
 
-                <EditText
-                    android:id="@+id/et_confirm_name"
-                    android:layout_width="match_parent"
+            <EditText
+                android:id="@+id/et_confirm_number"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/hlogo"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginRight="15dp"
+                android:hint="Phone Number"
+                android:inputType="number"
+                android:padding="18dp"
+                android:textColor="@color/white"
+                android:textColorHint="@color/lgrey"
+                android:textSize="20sp"
+                android:theme="@style/MyEditTextTheme" />
+
+            <EditText
+                android:id="@+id/et_confirm_address"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/hlogo"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="15dp"
+                android:hint="Your Shipment Address"
+                android:padding="18dp"
+                android:textColor="@color/white"
+                android:textColorHint="@color/lgrey"
+                android:textSize="20sp"
+                android:theme="@style/MyEditTextTheme" />
+
+            <EditText
+                android:id="@+id/et_confirm_cityname"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/hlogo"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="15dp"
+                android:hint="City Name"
+                android:padding="18dp"
+                android:textColor="@color/white"
+                android:textColorHint="@color/lgrey"
+                android:textSize="20sp"
+                android:theme="@style/MyEditTextTheme" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="20dp"
+                android:text="Do you want us to take measurements at your door steps?"
+                android:textColor="@color/white"
+                android:textSize="19sp" />
+
+            <RadioGroup
+                android:id="@+id/radioGroup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="25dp"
+                android:layout_marginTop="10dp">
+
+                <RadioButton
+                    android:id="@+id/radioYes"
+                    android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/hlogo"
-                    android:layout_marginLeft="15dp"
                     android:layout_marginTop="10dp"
-                    android:layout_marginRight="15dp"
-                    android:hint="Full Name"
-                    android:padding="18dp"
-                    android:textColor="@color/black"
-                    android:textSize="20sp" />
+                    android:checked="true"
+                    android:text=" Yes"
+                    android:textColor="@color/lgrey"
+                    android:textSize="20dp" />
 
-                <EditText
-                    android:id="@+id/et_confirm_number"
-                    android:layout_width="match_parent"
+                <RadioButton
+                    android:id="@+id/radioNo"
+                    android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/hlogo"
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginTop="15dp"
-                    android:layout_marginRight="15dp"
-                    android:hint="Phone Number"
-                    android:inputType="number"
-                    android:padding="18dp"
-                    android:textSize="20sp" />
+                    android:layout_marginTop="0dp"
+                    android:checked="false"
+                    android:text=" No"
+                    android:textColor="@color/lgrey"
 
-                <EditText
-                    android:id="@+id/et_confirm_address"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/hlogo"
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginRight="15dp"
-                    android:hint="Your Shipment Address"
-                    android:padding="18dp"
-                    android:textColor="@color/black"
-                    android:textSize="20sp" />
+                    android:textSize="20dp" />
+            </RadioGroup>
 
-                <EditText
-                    android:id="@+id/et_confirm_cityname"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/hlogo"
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginRight="15dp"
-                    android:hint="City Name"
-                    android:padding="18dp"
-                    android:textColor="@color/black"
-                    android:textSize="20sp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginRight="20dp"
-                    android:text="You don't know how to take measurement? No Problem, Send a measurement taker at the respective address!"
-                    android:textSize="18sp" />
-
-                <RadioGroup
-                    android:id="@+id/radioGroup"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="25dp"
-                    android:layout_marginTop="10dp">
-
-                    <RadioButton
-                        android:id="@+id/radioYes"
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:checked="true"
-                        android:text=" Yes"
-                        android:textSize="20dp" />
-
-                    <RadioButton
-                        android:id="@+id/radioNo"
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="0dp"
-                        android:checked="false"
-                        android:text=" No"
-
-                        android:textSize="20dp" />
-                </RadioGroup>
-
-                <Button
-                    android:id="@+id/btn_confirm_confirm"
-                    android:layout_width="200dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginRight="15dp"
-                    android:layout_marginBottom="25dp"
-                    android:background="@drawable/buttons"
-                    android:gravity="center"
-                    android:padding="18dp"
-                    android:text="Confirm"
-                    android:textAllCaps="false"
-                    android:textColor="@color/white"
-                    android:textSize="20sp" />
-            </LinearLayout>
-        </ScrollView>
-
-    </androidx.cardview.widget.CardView>
+            <Button
+                android:id="@+id/btn_confirm_confirm"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginBottom="25dp"
+                android:background="@drawable/buttons_white"
+                android:gravity="center"
+                android:padding="18dp"
+                android:text="Confirm"
+                android:textAllCaps="false"
+                android:textColor="@color/black"
+                android:textSize="20sp" />
+        </LinearLayout>
+    </ScrollView>
 
 
 </RelativeLayout>

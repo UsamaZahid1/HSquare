@@ -19,4 +19,10 @@
         <item name="colorPrimaryDark">@color/white</item>
         <item name="colorAccent">@color/white</item>
     </style>
+
+    <style name="MyEditTextTheme">
+        <item name="colorControlNormal">@color/lgrey</item>
+        <item name="colorControlActivated">@color/lgrey</item>
+        <item name="colorControlHighlight">@color/lgrey</item>
+    </style>
 </resources>

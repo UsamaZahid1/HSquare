@@ -2,6 +2,10 @@ package com.example.hsquare.Fragments;
 
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,6 +27,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
+import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -71,6 +78,11 @@ public class HomeGuestFragment extends Fragment {
 
 
         recyclerView.setHasFixedSize(true);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setItemViewCacheSize(20);
+        recyclerView.setDrawingCacheEnabled(true);
+        recyclerView.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
+
         layoutManager = new GridLayoutManager(view.getContext(), 2);
         recyclerView.setLayoutManager(layoutManager);
 
@@ -78,6 +90,7 @@ public class HomeGuestFragment extends Fragment {
         productReference = FirebaseDatabase.getInstance().getReference().child("Products");
         return view;
     }
+
     @Override
     public void onStart() {
         super.onStart();
@@ -94,12 +107,28 @@ public class HomeGuestFragment extends Fragment {
                 holder.tvProductPrice.setText("PKR. " + model.getPrice());
                 Picasso.get().load(model.getImage()).into(holder.ivProductimg);
 
+//
+//                String is = model.getImage();
+//                BitmapFactory.Options options = new BitmapFactory.Options();
+//                options.inPreferredConfig = Bitmap.Config.RGB_565;
+//                Bitmap image = BitmapFactory.decodeStream(is, null, options);
+//                Bitmap bitmapImage = BitmapFactory.decodeFile(model.getImage());
+//                int nh = (int) ( bitmapImage.getHeight() * (512.0 / bitmapImage.getWidth()) );
+//                Bitmap scaled = Bitmap.createScaledBitmap(bitmapImage, 512, nh, true);
+//                your_imageview.setImageBitmap(scaled);
+
+//                BitmapFactory.Options Options = new BitmapFactory.Options();
+//                Options.inSampleSize = 4;
+//                Options.inJustDecodeBounds = false;
+//                Bitmap action_bitmap = BitmapFactory.decodeFile(model.getImage(), Options);
+//                Picasso.get().load(String.valueOf(action_bitmap)).into(holder.ivProductimg);
+
                 holder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
 
-                        Intent intent=new Intent(getActivity(), ProductsDetailGuestActivity.class);
-                        intent.putExtra("pid",model.getPid());
+                        Intent intent = new Intent(getActivity(), ProductsDetailGuestActivity.class);
+                        intent.putExtra("pid", model.getPid());
                         startActivity(intent);
                     }
                 });
@@ -114,8 +143,9 @@ public class HomeGuestFragment extends Fragment {
             }
         };
         recyclerView.setAdapter(adapter);
-
+        adapter.notifyDataSetChanged();
         adapter.startListening();
+
 
     }
 }
